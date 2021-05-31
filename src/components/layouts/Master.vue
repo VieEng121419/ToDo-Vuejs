@@ -10,7 +10,7 @@
         <router-link :to="{ name: 'register' }">Register</router-link>
       </li>
       <li v-if="loggedIn">
-        <router-link :to="{ name: 'profile' }"> {{ name }} </router-link>
+        <router-link :to="{ name: 'profile' }"> {{ userName }} </router-link>
       </li>
       <li v-if="loggedIn">
         <router-link :to="{ name: 'logout' }">Logout</router-link>
@@ -24,24 +24,18 @@
 export default {
   data() {
     return {
-      userName: "",
+      userName: null,
     };
   },
+  method: {},
   computed: {
     loggedIn() {
       return this.$store.getters.loggedIn;
     },
-    name() {
-      return JSON.parse(localStorage.getItem("user_info")).name;
-    },
   },
-  // mounted() {
-  //   if (this.$store.getters.loggedIn) {
-  //     var info = JSON.parse(localStorage.getItem("user_info"));
-  //     console.log(info.name);
-  //     this.userName = info.name;
-  //   }
-  // },
+  mounted() {
+    this.userName = JSON.parse(localStorage.getItem("nameUser"));
+  },
 };
 </script>
 
@@ -58,6 +52,9 @@ export default {
   color: #2c3e50;
   font-size: 24px;
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .nav {
   display: flex;

@@ -3,7 +3,10 @@ import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
 import { router } from './router/router'
 import Master from './components/layouts/Master'
+import vuetify from '@/plugins/vuetify'
 import store from './store/index'
+
+import './styles/index.scss'
 
 Vue.config.productionTip = false
 
@@ -29,11 +32,13 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     next()
-  }})
+  }
+})
 
 
 new Vue({
   router,
   store,
-  render: h => h(Master),
+  vuetify,
+  render: h => h(Master)
 }).$mount('#app')

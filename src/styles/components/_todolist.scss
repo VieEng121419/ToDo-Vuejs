@@ -1,0 +1,81 @@
+.todo-list {
+  width: 60%;
+  .todo__title {
+    margin-bottom: 35px;
+  }
+}
+.todo__form {
+  position: relative;
+}
+.todo__input {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 18px;
+  margin-bottom: 16px;
+  &:focus {
+    outline: 0;
+  }
+}
+.todo__button {
+  width: 9%;
+  position: absolute;
+  top: 4.5px;
+  right: 4.5px;
+}
+.todo-item {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f0f0f0;
+}
+.edit-item {
+  font-size: 13px;
+  line-height: 100%;
+  cursor: pointer;
+}
+.remove-item {
+  cursor: pointer;
+  margin-left: 14px;
+  &:hover {
+    color: black;
+  }
+}
+.todo-item-left {
+  display: flex;
+  align-items: center;
+  .todo-checkbox {
+    width: 25px;
+    margin-bottom: 0;
+  }
+}
+.todo-item-label {
+  padding: 10px;
+  margin-left: 12px;
+  margin-bottom: 5px;
+  font-size: 15px;
+}
+.todo-item-edit {
+  margin-bottom: 5px;
+  margin-left: 10px;
+}
+.completed {
+  text-decoration: line-through;
+  color: grey;
+}
+.extra-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  border-top: 1px solid lightgrey;
+  padding-top: 14px;
+  margin-bottom: 14px;
+}
+.name-container {
+  margin-bottom: 16px;
+}
+
+.active {
+  background: lightgreen;
+}

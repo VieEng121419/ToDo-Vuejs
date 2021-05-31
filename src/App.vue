@@ -1,8 +1,5 @@
 <template>
-  <div id="app">
-    <h1>TO DO LIST</h1>
-    <todo-list></todo-list>
-  </div>
+  <todo-list></todo-list>
 </template>
 
 <script>
@@ -29,11 +26,4 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
+<style></style>

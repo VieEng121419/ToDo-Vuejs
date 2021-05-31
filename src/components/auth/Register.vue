@@ -4,7 +4,7 @@
       <h1>Register</h1>
     </div>
     <div class="form__register">
-      <form @submit.prevent="submitRegister">
+      <form class="form" @submit.prevent="submitRegister">
         <div class="form-groups">
           <label for="">Name</label>
           <input
@@ -182,74 +182,4 @@ export default {
 };
 </script>
 
-<style>
-.container {
-  width: 40%;
-  min-height: 50vh;
-  border: 1px solid #eeee;
-  background: #fff;
-  margin-top: 55px;
-}
-.title__register {
-  padding: 40px;
-  text-align: center;
-}
-.form__register {
-  display: flex;
-  justify-content: center;
-}
-h1 {
-  color: #000;
-}
-form {
-  width: 90%;
-}
-.form-groups {
-  width: 100%;
-}
-.form-groups--error {
-  border: 1px solid #f57f6c;
-}
-label {
-  display: block;
-  color: #000;
-  font-weight: 700;
-  font-size: 13px;
-  margin-bottom: 5px;
-}
-input {
-  width: 100%;
-  padding: 0.75em 1em;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-button {
-  cursor: pointer;
-  display: block;
-  height: auto;
-  width: 100%;
-  font-size: 13px;
-  font-weight: 700;
-  box-sizing: border-box;
-  background: #e75b35;
-  transition: 0.3s;
-  color: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  border-radius: 5px;
-  border: none;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-button:hover {
-  background: #f17958;
-}
-.error {
-  color: #f57f6c;
-  font-size: 0.75rem;
-  line-height: 1;
-  margin-left: 1px;
-  margin-top: -0.5rem;
-  margin-bottom: 0.9375rem;
-}
-</style>
+<style scoped></style>
