@@ -1,8 +1,17 @@
 <template>
   <div class="todo-item">
     <div class="todo-item-left">
-      <input type="checkbox" class="todo-checkbox" />
-      <div v-if="!edit" class="todo-item-label">
+      <input
+        type="checkbox"
+        class="todo-checkbox"
+        v-model="completed"
+        @change="doneEdit"
+      />
+      <div
+        v-if="!edit"
+        class="todo-item-label"
+        :class="{ completed: completed }"
+      >
         {{ description }}
       </div>
       <input
@@ -14,8 +23,9 @@
       />
     </div>
     <div class="todo-item-right">
-      <span class="edit-item" @click="editTodo">
-        <i class="fas fa-pen"></i>
+      <span v-if="!completed" class="edit-item" @click="editTodo">
+        <i v-if="!edit" class="fas fa-pen"></i>
+        <i v-else class="fas fa-check"></i>
       </span>
       <span class="remove-item" @click="removeTodo">
         &times;
@@ -57,6 +67,17 @@ export default {
     },
     cancelEdit() {
       this.edit = false;
+    },
+    doneEdit() {
+      if (this.description.trim() == "") {
+        return;
+      }
+      this.edit = false;
+      this.$store.dispatch("updateTodo", {
+        id: this.id,
+        description: this.description,
+        completed: this.completed,
+      });
     },
   },
 };

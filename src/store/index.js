@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from "axios"
 
+
 Vue.use(Vuex)
 
 const state = {
@@ -190,6 +191,19 @@ const actions = {
                     resolve(res)
                 })
                 .catch((err) => {
+                    reject(err)
+                })
+        })
+    },
+
+    updateTodo(context, infoTodo) {
+        axios.defaults.headers.common = { 'Authorization': `Bearer ${state.token}` }
+        return new Promise((resolve, reject) => {
+            axios.put(`https://api-nodejs-todolist.herokuapp.com/task/${infoTodo.id}`, { description: infoTodo.description, completed: infoTodo.completed })
+                .then(res => {
+                    resolve(res)
+                })
+                .catch(err => {
                     reject(err)
                 })
         })
