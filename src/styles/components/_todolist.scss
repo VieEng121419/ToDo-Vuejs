@@ -83,6 +83,32 @@
 .active {
   background: lightgreen;
 }
-.toto-popup {
+.todo__popup {
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 3px;
+  &--container {
+    padding: 50px 50px 0 50px;
+  }
+}
+.button__popup {
+  display: flex;
+  justify-content: flex-end;
+  margin: 33px 0;
+  .fas:hover {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(-5px);
+  }
+  .fa-check {
+    color: rgb(42, 160, 42);
+  }
+  .fa-times {
+    margin-left: 30px;
+    color: rgb(185, 47, 47);
+  }
 }

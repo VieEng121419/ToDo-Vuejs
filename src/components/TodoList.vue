@@ -13,9 +13,6 @@
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
-    <div class="toto-popup">
-      dasd
-    </div>
   </div>
 </template>
 

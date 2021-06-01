@@ -29,15 +29,22 @@
       <span v-if="!completed" class="edit-item" @click="editTodo">
         <i class="fas fa-pen"></i>
       </span>
-      <span class="remove-item" @click="removeTodo">
+      <span class="remove-item" @click="showPopup">
         &times;
       </span>
     </div>
+    <popup-confirm
+      v-if="isShow"
+      :id="id"
+      @confirmDelete="isShow = $event"
+    ></popup-confirm>
   </div>
 </template>
 
 <script>
+import PopupConfirm from "./layouts/PopupConfirm";
 export default {
+  components: { PopupConfirm },
   name: "todo-item",
   props: {
     todo: {
@@ -51,9 +58,13 @@ export default {
       description: this.todo.description,
       completed: this.todo.completed,
       edit: false,
+      isShow: false,
     };
   },
   methods: {
+    showPopup() {
+      this.isShow = true;
+    },
     removeTodo() {
       this.$store
         .dispatch("removeTodo", this.id)
