@@ -23,9 +23,11 @@
       />
     </div>
     <div class="todo-item-right">
+      <span class="edit-item">
+        <i v-if="edit" class="fas fa-check" @click="doneEdit"></i>
+      </span>
       <span v-if="!completed" class="edit-item" @click="editTodo">
-        <i v-if="!edit" class="fas fa-pen"></i>
-        <i v-else class="fas fa-check"></i>
+        <i class="fas fa-pen"></i>
       </span>
       <span class="remove-item" @click="removeTodo">
         &times;
@@ -72,12 +74,12 @@ export default {
       if (this.description.trim() == "") {
         return;
       }
-      this.edit = false;
       this.$store.dispatch("updateTodo", {
         id: this.id,
         description: this.description,
         completed: this.completed,
       });
+      this.editTodo();
     },
   },
 };

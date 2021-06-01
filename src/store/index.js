@@ -118,7 +118,6 @@ const actions = {
                 })
         })
     },
-
     uploadImg(context, data) {
         axios.defaults.headers.common = { 'Authorization': `Bearer ${state.token}` }
         const formData = new FormData()
@@ -141,6 +140,7 @@ const actions = {
     },
 
     getAvatar(context, id) {
+        axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
         return new Promise((resolve, reject) => {
             axios.get('https://api-nodejs-todolist.herokuapp.com/user/' + id + '/avatar')
                 .then((res) => {
@@ -153,7 +153,7 @@ const actions = {
     },
 
     getListTodo({ commit }) {
-        axios.defaults.headers.common = { 'Authorization': `Bearer ${state.token}` }
+        axios.defaults.headers.common = { 'Authorization': `Bearer ${state.token}` };
         return new Promise((resolve, reject) => {
             axios.get('https://api-nodejs-todolist.herokuapp.com/task')
                 .then((res) => {

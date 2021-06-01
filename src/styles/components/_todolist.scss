@@ -1,3 +1,4 @@
+@import "../layouts/todofilter";
 .todo-list {
   width: 60%;
   .todo__title {
@@ -33,6 +34,9 @@
   font-size: 13px;
   line-height: 100%;
   cursor: pointer;
+  .fa-check {
+    margin-right: 25px;
+  }
 }
 .remove-item {
   cursor: pointer;

@@ -34,7 +34,7 @@ export default {
     },
   },
   mounted() {
-    this.userName = JSON.parse(localStorage.getItem("nameUser"));
+    this.userName = JSON.parse(localStorage.getItem("user_info")).name;
   },
 };
 </script>
