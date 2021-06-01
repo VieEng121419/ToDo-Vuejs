@@ -1,5 +1,6 @@
 <template>
   <div class="container__profile">
+    <popup></popup>
     <h3 class="profile__title">My Account</h3>
     <div class="container__form--profile">
       <p class="form__title">USER INFORMATION</p>
@@ -103,11 +104,12 @@ export default {
       id: "",
       name: "",
       age: 0,
-
       url: null,
       isSave: false,
       file: "",
       image: "",
+      message: "",
+      check: true,
     };
   },
   validations: {
@@ -125,6 +127,16 @@ export default {
     url: function() {},
   },
   methods: {
+    showModal() {
+      const params = {
+        text: this.message,
+        check: this.check,
+        onConfirm: () => {
+          return this.alertFunc();
+        },
+      };
+      this.$modal.show(params);
+    },
     changeEdit() {
       this.statusEdit = !this.statusEdit;
     },
@@ -136,12 +148,17 @@ export default {
     uploadImg() {
       this.$store
         .dispatch("uploadImg", this.file)
-        .then((response) => {
-          alert(response.data.succes);
-          this.$router.push({ name: "todo" });
+        .then(async (response) => {
+          console.log(response);
+          // this.message = "Avatar Updated!";
+          // await this.showModal();
+          await this.$router.push({ name: "todo" });
         })
         .catch((err) => {
           alert(err.response.data.error);
+          this.check = !this.check;
+          this.message = "Avatar Update Fail!";
+          this.showModal();
         });
     },
     submitEdit() {
@@ -197,5 +214,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

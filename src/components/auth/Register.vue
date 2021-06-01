@@ -1,104 +1,108 @@
 <template>
-  <div class="container">
-    <div class="title__register">
-      <h1>Register</h1>
-    </div>
-    <div class="form__register">
-      <form class="form" @submit.prevent="submitRegister">
-        <div class="form-groups">
-          <label for="">Name</label>
-          <input
-            type="text"
-            placeholder="Type your name"
-            @blur="statusErr = true"
-            v-model.trim="$v.name.$model"
-            :class="{ 'form-groups--error': $v.name.$error }"
-          />
-        </div>
-        <!-- validate name -->
-        <div v-if="statusErr" class="err">
-          <div class="error" v-if="!$v.name.required">Field is required</div>
-          <div class="error" v-if="!$v.name.minLength">
-            Name must have at least {{ $v.name.$params.minLength.min }} letters.
+  <div class="login__container">
+    <div class="container">
+      <div class="title__register">
+        <h1>Register</h1>
+      </div>
+      <div class="form__register">
+        <form class="form" @submit.prevent="submitRegister">
+          <div class="form-groups">
+            <label for="">Name</label>
+            <input
+              type="text"
+              placeholder="Type your name"
+              @blur="statusErr = true"
+              v-model.trim="$v.name.$model"
+              :class="{ 'form-groups--error': $v.name.$error }"
+            />
           </div>
-          <div class="error" v-if="!$v.name.maxLength">
-            Name must have at most {{ $v.name.$params.maxLength.max }} letters.
+          <!-- validate name -->
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.name.required">Field is required</div>
+            <div class="error" v-if="!$v.name.minLength">
+              Name must have at least
+              {{ $v.name.$params.minLength.min }} letters.
+            </div>
+            <div class="error" v-if="!$v.name.maxLength">
+              Name must have at most
+              {{ $v.name.$params.maxLength.max }} letters.
+            </div>
           </div>
-        </div>
-        <!-- validate name -->
+          <!-- validate name -->
 
-        <div class="form-groups">
-          <label for="">Email</label>
-          <input
-            type="email"
-            placeholder="Type your email"
-            v-model.trim="$v.email.$model"
-            :class="{ 'form-groups--error': $v.email.$error }"
-          />
-        </div>
-        <!-- validate email -->
-        <div v-if="statusErr" class="err">
-          <div class="error" v-if="!$v.email.required">Field is required</div>
-          <div class="error" v-if="!$v.email.email">Email must be valid</div>
-        </div>
-        <!-- validate email -->
+          <div class="form-groups">
+            <label for="">Email</label>
+            <input
+              type="email"
+              placeholder="Type your email"
+              v-model.trim="$v.email.$model"
+              :class="{ 'form-groups--error': $v.email.$error }"
+            />
+          </div>
+          <!-- validate email -->
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.email.required">Field is required</div>
+            <div class="error" v-if="!$v.email.email">Email must be valid</div>
+          </div>
+          <!-- validate email -->
 
-        <div class="form-groups">
-          <label for="">Age</label>
-          <input
-            type="text"
-            placeholder="Type your age"
-            :class="{ 'form-groups--error': $v.age.$error }"
-            v-model.trim.lazy="$v.age.$model"
-          />
-        </div>
-        <!-- validate age -->
-        <div v-if="statusErr" class="err">
-          <div class="error" v-if="!$v.age.minValue">
-            Age must have at least {{ $v.age.$params.minValue.min }}
+          <div class="form-groups">
+            <label for="">Age</label>
+            <input
+              type="text"
+              placeholder="Type your age"
+              :class="{ 'form-groups--error': $v.age.$error }"
+              v-model.trim.lazy="$v.age.$model"
+            />
           </div>
-        </div>
-        <!-- validate age -->
-        <div class="form-groups">
-          <label for="">Password</label>
-          <input
-            type="password"
-            placeholder="Type your password"
-            :class="{ 'form-groups--error': $v.password.$error }"
-            v-model.trim="$v.password.$model"
-          />
-        </div>
-        <!-- validate password -->
-        <div v-if="statusErr" class="err">
-          <div class="error" v-if="!$v.password.required">
-            Password is required.
+          <!-- validate age -->
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.age.minValue">
+              Age must have at least {{ $v.age.$params.minValue.min }}
+            </div>
           </div>
-          <div class="error" v-if="!$v.password.minLength">
-            Password must have at least
-            {{ $v.password.$params.minLength.min }} letters.
+          <!-- validate age -->
+          <div class="form-groups">
+            <label for="">Password</label>
+            <input
+              type="password"
+              placeholder="Type your password"
+              :class="{ 'form-groups--error': $v.password.$error }"
+              v-model.trim="$v.password.$model"
+            />
           </div>
-        </div>
-        <!-- validate password -->
-        <div class="form-groups">
-          <label for="">Confirm Password</label>
-          <input
-            type="password"
-            placeholder="Type your password again"
-            :class="{ 'form-groups--error': $v.confirmPassword.$error }"
-            v-model.trim="$v.confirmPassword.$model"
-          />
-        </div>
-        <!-- validate confirm -->
-        <div v-if="statusErr" class="err">
-          <div class="error" v-if="!$v.confirmPassword.sameAsPassword">
-            Passwords must be identical.
+          <!-- validate password -->
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.password.required">
+              Password is required.
+            </div>
+            <div class="error" v-if="!$v.password.minLength">
+              Password must have at least
+              {{ $v.password.$params.minLength.min }} letters.
+            </div>
           </div>
-        </div>
-        <!-- validate confirm -->
-        <div class="form-groups">
-          <button type="submit">Register</button>
-        </div>
-      </form>
+          <!-- validate password -->
+          <div class="form-groups">
+            <label for="">Confirm Password</label>
+            <input
+              type="password"
+              placeholder="Type your password again"
+              :class="{ 'form-groups--error': $v.confirmPassword.$error }"
+              v-model.trim="$v.confirmPassword.$model"
+            />
+          </div>
+          <!-- validate confirm -->
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.confirmPassword.sameAsPassword">
+              Passwords must be identical.
+            </div>
+          </div>
+          <!-- validate confirm -->
+          <div class="form-groups">
+            <button type="submit">Register</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -127,8 +131,8 @@ export default {
       age: 0,
       password: "",
       confirmPassword: "",
-      statusNotifi: false,
-      statusErr: false,
+      message: "",
+      check: true,
     };
   },
   validations: {
@@ -154,6 +158,16 @@ export default {
     },
   },
   methods: {
+    showModal() {
+      const params = {
+        text: this.message,
+        check: this.check,
+        onConfirm: () => {
+          return this.alertFunc();
+        },
+      };
+      this.$modal.show(params);
+    },
     submitRegister() {
       console.log("submit");
       this.$v.$touch();
@@ -173,8 +187,10 @@ export default {
             this.$router.push({ name: "todo" });
           })
           .catch((err) => {
-            alert("Register fail");
             console.log(err);
+            this.check = !this.check;
+            this.message = "Register Fail!";
+            this.showModal();
           });
       }
     },

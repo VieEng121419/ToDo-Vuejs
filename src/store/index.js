@@ -17,7 +17,8 @@ const state = {
     logAlert: false,
     resgisAlert: false,
     outAlert: false,
-    editAlert: false
+    editAlert: false,
+    avaAlert: false
 }
 const getters = {
     loggedIn(state) {
@@ -118,7 +119,7 @@ const actions = {
                 })
         })
     },
-    uploadImg(context, data) {
+    uploadImg({ commit }, data) {
         axios.defaults.headers.common = { 'Authorization': `Bearer ${state.token}` }
         const formData = new FormData()
         formData.append('avatar', data)
@@ -130,6 +131,7 @@ const actions = {
             })
                 .then((res) => {
                     console.log(res)
+                    commit('uploadImg')
                     resolve(res)
                 })
                 .catch((err) => {
@@ -228,6 +230,9 @@ const mutations = {
     },
     editUser(state) {
         state.editAlert = true
+    },
+    uploadImg(state) {
+        state.avaAlert = true
     },
     getListTodo(state, todos) {
         state.todos = todos

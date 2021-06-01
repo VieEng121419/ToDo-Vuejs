@@ -70,6 +70,11 @@ export default {
   right: 0;
   width: 100%;
 }
+.nav li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .nav a {
   color: #636b6f;
   padding: 0 25px;

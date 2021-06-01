@@ -1,26 +1,55 @@
 <template>
-  <todo-list></todo-list>
+  <div class="todo__container">
+    <todo-list></todo-list>
+    <popup></popup>
+  </div>
 </template>
 
 <script>
 import TodoList from "./components/TodoList.vue";
 export default {
   name: "App",
+  data() {
+    return {
+      message: "",
+      check: true,
+    };
+  },
   components: {
     TodoList,
   },
-  created() {
+  methods: {
+    showModal() {
+      const params = {
+        text: this.message,
+        check: this.check,
+        onConfirm: () => {
+          return this.alertFunc();
+        },
+      };
+      this.$modal.show(params);
+    },
+  },
+  mounted() {
     if (this.$store.state.logAlert === true) {
-      alert("Login Successfully");
+      this.message = "Login Successfully!";
+      this.showModal();
       this.$store.state.logAlert = false;
     }
     if (this.$store.state.resgisAlert === true) {
-      alert("Register Successfully");
+      this.message = "Register Successfully!";
+      this.showModal();
       this.$store.state.resgisAlert = false;
     }
     if (this.$store.state.editAlert === true) {
-      alert("Info Updated");
+      this.message = "Edit Successfully!";
+      this.showModal();
       this.$store.state.editAlert = false;
+    }
+    if (this.$store.state.avaAlert === true) {
+      this.message = "Avatar Updated!";
+      this.showModal();
+      this.$store.state.avaAlert = false;
     }
   },
 };
