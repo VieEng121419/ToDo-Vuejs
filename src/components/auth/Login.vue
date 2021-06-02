@@ -49,13 +49,16 @@
         </form>
       </div>
     </div>
+    <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
 import { required, minLength, email } from "vuelidate/lib/validators";
+import Loading from "../layouts/Loading.vue";
 
 export default {
+  components: { Loading },
   data() {
     return {
       email: "",
@@ -63,6 +66,7 @@ export default {
       statusErr: false,
       message: "",
       check: true,
+      isLoading: false,
     };
   },
   validations: {
@@ -87,6 +91,7 @@ export default {
       this.$modal.show(params);
     },
     submiLogin() {
+      this.isLoading = true;
       console.log("submit");
       this.$v.$touch();
       if (this.$v.$invalid) {
@@ -99,6 +104,7 @@ export default {
           })
           .then((response) => {
             console.log(response);
+            this.isLoading = false;
             this.$router.push({ name: "todo" });
           })
           .catch((err) => {

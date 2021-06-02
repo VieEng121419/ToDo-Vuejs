@@ -8,7 +8,7 @@
         alt="check"
       />
       <img v-else class="modal-img" src="@/assets/error.png" alt="error" />
-      <h1 class="modal-title">{{ text }}</h1>
+      <h2 class="modal-title">{{ text }}</h2>
       <div class="modal-buttons">
         <button class="modal-button" @click="hide">Close</button>
       </div>

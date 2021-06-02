@@ -24,7 +24,7 @@
     </div>
     <div class="todo-item-right">
       <span class="edit-item">
-        <i v-if="edit" class="fas fa-check" @click="doneEdit"></i>
+        <i v-if="edit" class="fas fa-check" @click="editTodo"></i>
       </span>
       <span v-if="!completed" class="edit-item" @click="editTodo">
         <i class="fas fa-pen"></i>
@@ -90,7 +90,6 @@ export default {
         description: this.description,
         completed: this.completed,
       });
-      this.editTodo();
     },
   },
 };

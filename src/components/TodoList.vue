@@ -13,16 +13,19 @@
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
+    <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
+import Loading from "./layouts/Loading.vue";
 import TodoItem from "./TodoItem.vue";
 export default {
-  components: { TodoItem },
+  components: { TodoItem, Loading },
   data() {
     return {
       newTodo: "",
+      isLoading: true,
     };
   },
   computed: {
@@ -50,6 +53,7 @@ export default {
     this.$store
       .dispatch("getListTodo")
       .then((res) => {
+        this.isLoading = false;
         console.log(res);
       })
       .catch((err) => {

@@ -1,6 +1,7 @@
 <template>
   <div class="container__profile">
     <popup></popup>
+    <loading v-if="isEdit"></loading>
     <h3 class="profile__title">My Account</h3>
     <div class="container__form--profile">
       <p class="form__title">USER INFORMATION</p>
@@ -46,6 +47,7 @@
       <div class="user__profile">
         <form @submit.prevent="uploadImg">
           <div class="user__img">
+            <loading v-if="isLoading"></loading>
             <img :src="url" alt="avatar" />
             <div class="input__img">
               <input
@@ -93,7 +95,11 @@ import {
   maxLength,
   minValue,
 } from "vuelidate/lib/validators";
+import Loading from "../layouts/Loading";
 export default {
+  components: {
+    Loading,
+  },
   data() {
     return {
       statusEdit: false,
@@ -110,6 +116,8 @@ export default {
       image: "",
       message: "",
       check: true,
+      isLoading: true,
+      isEdit: false,
     };
   },
   validations: {
@@ -122,9 +130,6 @@ export default {
       required,
       minValue: minValue(10),
     },
-  },
-  watch: {
-    url: function() {},
   },
   methods: {
     showModal() {
@@ -162,6 +167,7 @@ export default {
         });
     },
     submitEdit() {
+      this.isEdit = true;
       this.$v.$touch();
       if (this.$v.$invalid) {
         console.log("fail");
@@ -175,6 +181,7 @@ export default {
           })
           .then((response) => {
             console.log(response);
+            this.isEdit = false;
             this.$router.push({ name: "todo" });
           })
           .catch((err) => {
@@ -187,6 +194,7 @@ export default {
       this.$store
         .dispatch("getAvatar", this.id)
         .then((res) => {
+          this.isLoading = false;
           this.url = res.config.url;
         })
         .catch((err) => {
