@@ -181,16 +181,18 @@ export default {
         console.log("fail");
       } else {
         this.$store
-          .dispatch("addUser", {
+          .dispatch("auth/addUser", {
             name: this.name,
             email: this.email,
             age: this.age,
             password: this.password,
           })
-          .then((response) => {
+          .then(async (response) => {
             console.log(response);
             this.isLoading = false;
-            this.$router.push({ name: "todo" });
+            var token = this.$store.state.auth.token;
+            await this.$store.dispatch("todos/setToken", token);
+            await this.$router.push({ name: "todo" });
           })
           .catch((err) => {
             console.log(err);

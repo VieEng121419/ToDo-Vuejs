@@ -98,14 +98,16 @@ export default {
         console.log("fail");
       } else {
         this.$store
-          .dispatch("loginUser", {
+          .dispatch("auth/loginUser", {
             email: this.email,
             password: this.password,
           })
-          .then((response) => {
-            console.log(response);
+          .then(async (response) => {
             this.isLoading = false;
-            this.$router.push({ name: "todo" });
+            console.log(response);
+            var token = this.$store.state.auth.token;
+            await this.$store.dispatch("todos/setToken", token);
+            await this.$router.push({ name: "todo" });
           })
           .catch((err) => {
             console.log(err);
@@ -117,10 +119,10 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.state.outAlert === true) {
+    if (this.$store.state.auth.outAlert === true) {
       this.message = "Logout Successfully!";
       this.showModal();
-      this.$store.state.outAlert = false;
+      this.$store.state.auth.outAlert = false;
     }
   },
 };

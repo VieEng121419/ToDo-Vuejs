@@ -30,7 +30,7 @@ export default {
   method: {},
   computed: {
     loggedIn() {
-      return this.$store.getters.loggedIn;
+      return this.$store.getters.['auth/loggedIn'];
     },
   },
   mounted() {

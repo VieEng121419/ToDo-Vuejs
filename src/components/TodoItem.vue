@@ -67,7 +67,7 @@ export default {
     },
     removeTodo() {
       this.$store
-        .dispatch("removeTodo", this.id)
+        .dispatch("todos/removeTodo", this.id)
         .then((res) => {
           console.log(res);
         })
@@ -85,7 +85,7 @@ export default {
       if (this.description.trim() == "") {
         return;
       }
-      this.$store.dispatch("updateTodo", {
+      this.$store.dispatch("todos/updateTodo", {
         id: this.id,
         description: this.description,
         completed: this.completed,

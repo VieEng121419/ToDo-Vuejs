@@ -152,12 +152,10 @@ export default {
     },
     uploadImg() {
       this.$store
-        .dispatch("uploadImg", this.file)
-        .then(async (response) => {
+        .dispatch("editUser/uploadImg", this.file)
+        .then((response) => {
           console.log(response);
-          // this.message = "Avatar Updated!";
-          // await this.showModal();
-          await this.$router.push({ name: "todo" });
+          this.$router.push({ name: "todo" });
         })
         .catch((err) => {
           alert(err.response.data.error);
@@ -173,7 +171,7 @@ export default {
         console.log("fail");
       } else {
         this.$store
-          .dispatch("editUser", {
+          .dispatch("editUser/editUser", {
             name: this.name,
             email: this.email,
             age: this.age,
@@ -192,7 +190,7 @@ export default {
     },
     getAvatar() {
       this.$store
-        .dispatch("getAvatar", this.id)
+        .dispatch("editUser/getAvatar", this.id)
         .then((res) => {
           this.isLoading = false;
           this.url = res.config.url;

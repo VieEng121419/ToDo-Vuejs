@@ -31,22 +31,22 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.state.logAlert === true) {
+    if (this.$store.state.auth.logAlert === true) {
       this.message = "Login Successfully!";
       this.showModal();
-      this.$store.state.logAlert = false;
+      this.$store.state.auth.logAlert = false;
     }
-    if (this.$store.state.resgisAlert === true) {
+    if (this.$store.state.auth.resgisAlert === true) {
       this.message = "Register Successfully!";
       this.showModal();
-      this.$store.state.resgisAlert = false;
+      this.$store.state.auth.resgisAlert = false;
     }
-    if (this.$store.state.editAlert === true) {
+    if (this.$store.state.editUser.editAlert === true) {
       this.message = "Edit Successfully!";
       this.showModal();
       this.$store.state.editAlert = false;
     }
-    if (this.$store.state.avaAlert === true) {
+    if (this.$store.state.editUser.avaAlert === true) {
       this.message = "Avatar Updated!";
       this.showModal();
       this.$store.state.avaAlert = false;

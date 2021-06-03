@@ -30,7 +30,7 @@ export default {
   },
   computed: {
     listTodo() {
-      return this.$store.state.todos.data;
+      return this.$store.state.todos.todos.data;
     },
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
         return;
       }
       this.$store
-        .dispatch("addTodo", this.newTodo)
+        .dispatch("todos/addTodo", this.newTodo)
         .then((res) => {
           console.log(res);
         })
@@ -51,7 +51,7 @@ export default {
   },
   created() {
     this.$store
-      .dispatch("getListTodo")
+      .dispatch("todos/getListTodo")
       .then((res) => {
         this.isLoading = false;
         console.log(res);

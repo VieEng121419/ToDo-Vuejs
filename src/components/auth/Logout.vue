@@ -14,7 +14,7 @@ export default {
     };
   },
   created() {
-    this.$store.dispatch("logoutUser").then((response) => {
+    this.$store.dispatch("auth/logoutUser").then((response) => {
       console.log(response);
       this.isLoading = false;
       this.$router.push({ name: "login" });
