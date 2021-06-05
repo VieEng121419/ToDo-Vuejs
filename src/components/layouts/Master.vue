@@ -10,7 +10,7 @@
         <router-link :to="{ name: 'register' }">Register</router-link>
       </li>
       <li v-if="loggedIn">
-        <router-link :to="{ name: 'profile' }"> {{ userName }} </router-link>
+        <router-link :to="{ name: 'profile' }"> Account </router-link>
       </li>
       <li v-if="loggedIn">
         <router-link :to="{ name: 'logout' }">Logout</router-link>
@@ -30,11 +30,8 @@ export default {
   method: {},
   computed: {
     loggedIn() {
-      return this.$store.getters.['auth/loggedIn'];
+      return this.$store.getters["auth/loggedIn"];
     },
-  },
-  mounted() {
-    this.userName = JSON.parse(localStorage.getItem("user_info")).name;
   },
 };
 </script>

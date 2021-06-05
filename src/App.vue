@@ -31,25 +31,25 @@ export default {
     },
   },
   mounted() {
-    if (this.$store.state.auth.logAlert === true) {
+    if (this.$store.state.account.login.logAlert === true) {
       this.message = "Login Successfully!";
       this.showModal();
-      this.$store.state.auth.logAlert = false;
+      this.$store.state.account.login.logAlert = false;
     }
-    if (this.$store.state.auth.resgisAlert === true) {
+    if (this.$store.state.account.register.resgisAlert === true) {
       this.message = "Register Successfully!";
       this.showModal();
-      this.$store.state.auth.resgisAlert = false;
+      this.$store.state.account.register.resgisAlert;
     }
-    if (this.$store.state.editUser.editAlert === true) {
+    if (this.$store.state.profile.edit.editAlert === true) {
       this.message = "Edit Successfully!";
       this.showModal();
       this.$store.state.editAlert = false;
     }
-    if (this.$store.state.editUser.avaAlert === true) {
+    if (this.$store.state.profile.avatar.updateAva.avaAlert === true) {
       this.message = "Avatar Updated!";
       this.showModal();
-      this.$store.state.avaAlert = false;
+      this.$store.state.profile.avatar.updateAva.avaAlert = false;
     }
   },
 };

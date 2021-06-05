@@ -25,6 +25,22 @@
             Name must have at most {{ $v.name.$params.maxLength.max }} letters.
           </div>
           <!-- validate name -->
+
+          <div class="form-groups">
+            <label for="">Email</label>
+            <input
+              type="email"
+              placeholder="Type your email"
+              v-model.trim="$v.email.$model"
+              :class="{ 'form-groups--error': $v.email.$error }"
+              disabled
+            />
+          </div>
+          <!-- validate email -->
+          <div class="error" v-if="!$v.email.required">Field is required</div>
+          <div class="error" v-if="!$v.email.email">Email must be valid</div>
+          <!-- validate email -->
+
           <div class="form-groups">
             <label for="">Age</label>
             <input
@@ -93,8 +109,10 @@ import {
   required,
   minLength,
   maxLength,
+  email,
   minValue,
 } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 import Loading from "../layouts/Loading";
 export default {
   components: {
@@ -103,14 +121,12 @@ export default {
   data() {
     return {
       statusEdit: false,
-      Info: {
-        name: "",
-        age: 0,
-      },
+      Info: {},
       id: "",
       name: "",
+      email: "",
       age: 0,
-      url: null,
+      url: "",
       isSave: false,
       file: "",
       image: "",
@@ -126,12 +142,26 @@ export default {
       minLength: minLength(4),
       maxLength: maxLength(128),
     },
+    email: {
+      required,
+      email,
+    },
     age: {
       required,
       minValue: minValue(10),
     },
   },
+  watch: {
+    url() {
+      this.isLoading = false;
+    },
+  },
   methods: {
+    ...mapActions({
+      editUser: "profile/edit/editUser",
+      getImageUser: "profile/avatar/getAva/getAvatar",
+      uploadAva: "profile/avatar/updateAva/uploadImg",
+    }),
     showModal() {
       const params = {
         text: this.message,
@@ -151,18 +181,8 @@ export default {
       this.isSave = true;
     },
     uploadImg() {
-      this.$store
-        .dispatch("editUser/uploadImg", this.file)
-        .then((response) => {
-          console.log(response);
-          this.$router.push({ name: "todo" });
-        })
-        .catch((err) => {
-          alert(err.response.data.error);
-          this.check = !this.check;
-          this.message = "Avatar Update Fail!";
-          this.showModal();
-        });
+      this.isEdit = true;
+      this.uploadAva(this.file);
     },
     submitEdit() {
       this.isEdit = true;
@@ -170,52 +190,26 @@ export default {
       if (this.$v.$invalid) {
         console.log("fail");
       } else {
-        this.$store
-          .dispatch("editUser/editUser", {
-            name: this.name,
-            email: this.email,
-            age: this.age,
-            password: this.password,
-          })
-          .then((response) => {
-            console.log(response);
-            this.isEdit = false;
-            this.$router.push({ name: "todo" });
-          })
-          .catch((err) => {
-            alert("Edit fail");
-            console.log(err);
-          });
+        this.editUser({ name: this.name, age: this.age });
       }
     },
     getAvatar() {
-      this.$store
-        .dispatch("editUser/getAvatar", this.id)
-        .then((res) => {
-          this.isLoading = false;
-          this.url = res.config.url;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.getImageUser(this.id);
     },
   },
   created() {
-    const userInfo = JSON.parse(localStorage.getItem("user_info"));
+    const userInfo = JSON.parse(localStorage.getItem("todo")).auth.user;
     this.id = userInfo._id;
     this.name = userInfo.name;
     this.email = userInfo.email;
     this.age = userInfo.age;
-    this.password = userInfo.password;
+    this.isLoading = true;
     this.getAvatar();
   },
   mounted() {
-    if (localStorage.getItem("reloaded")) {
-      localStorage.removeItem("reloaded");
-    } else {
-      localStorage.setItem("reloaded", "1");
-      location.reload();
-    }
+    this.url = `https://api-nodejs-todolist.herokuapp.com/${localStorage.getItem(
+      "url"
+    )}`;
   },
 };
 </script>

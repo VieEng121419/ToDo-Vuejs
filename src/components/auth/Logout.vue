@@ -6,6 +6,7 @@
 
 <script>
 import Loading from "../layouts/Loading.vue";
+import { mapActions } from "vuex";
 export default {
   components: { Loading },
   data() {
@@ -13,12 +14,12 @@ export default {
       isLoading: true,
     };
   },
+  methods: {
+    ...mapActions({ logout: "account/logout/logoutUser" }),
+  },
   created() {
-    this.$store.dispatch("auth/logoutUser").then((response) => {
-      console.log(response);
-      this.isLoading = false;
-      this.$router.push({ name: "login" });
-    });
+    this.isLoading = true;
+    this.logout();
   },
 };
 </script>

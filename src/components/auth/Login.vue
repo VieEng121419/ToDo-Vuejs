@@ -56,7 +56,7 @@
 <script>
 import { required, minLength, email } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
-
+import { mapActions } from "vuex";
 export default {
   components: { Loading },
   data() {
@@ -90,6 +90,7 @@ export default {
       };
       this.$modal.show(params);
     },
+    ...mapActions({ loginUser: "account/login/loginUser" }),
     submiLogin() {
       this.isLoading = true;
       console.log("submit");
@@ -97,29 +98,12 @@ export default {
       if (this.$v.$invalid) {
         console.log("fail");
       } else {
-        this.$store
-          .dispatch("auth/loginUser", {
-            email: this.email,
-            password: this.password,
-          })
-          .then(async (response) => {
-            this.isLoading = false;
-            console.log(response);
-            var token = this.$store.state.auth.token;
-            await this.$store.dispatch("todos/setToken", token);
-            await this.$router.push({ name: "todo" });
-          })
-          .catch((err) => {
-            console.log(err);
-            this.check = !this.check;
-            this.message = "Login Fail!";
-            this.showModal();
-          });
+        this.loginUser({ email: this.email, password: this.password });
       }
     },
   },
   mounted() {
-    if (this.$store.state.auth.outAlert === true) {
+    if (this.$store.state.account.logout.outAlert === true) {
       this.message = "Logout Successfully!";
       this.showModal();
       this.$store.state.auth.outAlert = false;

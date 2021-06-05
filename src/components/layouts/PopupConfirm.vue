@@ -11,16 +11,19 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
   props: ["id"],
   data() {
     return {
       isDelete: false,
+      isLoading: false,
       yes: true,
       no: false,
     };
   },
   methods: {
+    ...mapActions({ deleteTask: "todos/deleteTask/removeTodo" }),
     DeleteTask() {
       this.$emit("confirmDelete", this.isDelete);
       this.removeTodo();
@@ -30,14 +33,7 @@ export default {
       this.$emit("confirmDelete", this.isDelete);
     },
     removeTodo() {
-      this.$store
-        .dispatch("removeTodo", this.id)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.deleteTask(this.id);
     },
   },
 };

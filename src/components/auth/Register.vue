@@ -118,21 +118,16 @@ import {
   email,
 } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
-
+import { mapActions } from "vuex";
 export default {
   components: { Loading },
   data() {
     return {
-      posts: {
-        name: "",
-        email: "",
-        password: "",
-        age: 0,
-      },
       name: "",
       email: "",
       age: 0,
       password: "",
+      statusErr: false,
       confirmPassword: "",
       message: "",
       check: true,
@@ -162,6 +157,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions({ addUser: "account/register/addUser" }),
     showModal() {
       const params = {
         text: this.message,
@@ -172,7 +168,7 @@ export default {
       };
       this.$modal.show(params);
     },
-    submitRegister() {
+    async submitRegister() {
       this.isLoading = true;
       console.log("submit");
       this.$v.$touch();
@@ -180,26 +176,12 @@ export default {
         //
         console.log("fail");
       } else {
-        this.$store
-          .dispatch("auth/addUser", {
-            name: this.name,
-            email: this.email,
-            age: this.age,
-            password: this.password,
-          })
-          .then(async (response) => {
-            console.log(response);
-            this.isLoading = false;
-            var token = this.$store.state.auth.token;
-            await this.$store.dispatch("todos/setToken", token);
-            await this.$router.push({ name: "todo" });
-          })
-          .catch((err) => {
-            console.log(err);
-            this.check = !this.check;
-            this.message = "Register Fail!";
-            this.showModal();
-          });
+        this.addUser({
+          name: this.name,
+          email: this.email,
+          age: this.age,
+          password: this.password,
+        });
       }
     },
   },

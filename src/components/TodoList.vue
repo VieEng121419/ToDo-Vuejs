@@ -8,6 +8,7 @@
         placeholder="What need to be done"
         v-model="newTodo"
         @keyup.enter="addTodo"
+        :disabled="isDisable"
       />
       <button class="todo__button" @click="addTodo">Add</button>
     </div>
@@ -20,45 +21,46 @@
 <script>
 import Loading from "./layouts/Loading.vue";
 import TodoItem from "./TodoItem.vue";
+import { mapActions } from "vuex";
 export default {
   components: { TodoItem, Loading },
   data() {
     return {
       newTodo: "",
-      isLoading: true,
+      isLoading: false,
+      isDisable: false,
     };
   },
   computed: {
     listTodo() {
-      return this.$store.state.todos.todos.data;
+      return this.$store.state.todos.todos;
+    },
+  },
+  watch: {
+    listTodo() {
+      this.isLoading = false;
+      this.isDisable = false;
     },
   },
   methods: {
+    ...mapActions({
+      getListTodo: "todos/getList/getListTodo",
+      addTask: "todos/addTask/addTodo",
+    }),
     addTodo() {
+      this.isLoading = true;
+      this.isDisable = true;
       if (this.newTodo.trim().length == 0) {
         return;
       }
-      this.$store
-        .dispatch("todos/addTodo", this.newTodo)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      this.addTask(this.newTodo);
       this.newTodo = "";
     },
   },
+  mounted() {},
   created() {
-    this.$store
-      .dispatch("todos/getListTodo")
-      .then((res) => {
-        this.isLoading = false;
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.isLoading = true;
+    this.getListTodo();
   },
 };
 </script>

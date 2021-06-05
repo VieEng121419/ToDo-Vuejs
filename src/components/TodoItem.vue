@@ -4,47 +4,50 @@
       <input
         type="checkbox"
         class="todo-checkbox"
-        v-model="completed"
+        v-model="todo.completed"
         @change="doneEdit"
       />
       <div
         v-if="!edit"
         class="todo-item-label"
-        :class="{ completed: completed }"
+        :class="{ completed: todo.completed }"
       >
-        {{ description }}
+        {{ todo.description }}
       </div>
       <input
         v-else
         type="text"
         class="todo-item-edit"
-        v-model="description"
+        v-model="todo.description"
         @keyup.esc="cancelEdit"
       />
     </div>
     <div class="todo-item-right">
       <span class="edit-item">
-        <i v-if="edit" class="fas fa-check" @click="editTodo"></i>
+        <i v-if="edit" class="fas fa-check" @click="doneEdit"></i>
       </span>
-      <span v-if="!completed" class="edit-item" @click="editTodo">
+      <span v-if="!todo.completed" class="edit-item" @click="editTodo">
         <i class="fas fa-pen"></i>
       </span>
       <span class="remove-item" @click="showPopup">
         &times;
       </span>
     </div>
+    <loading v-if="isLoading"></loading>
     <popup-confirm
       v-if="isShow"
-      :id="id"
-      @confirmDelete="isShow = $event"
+      :id="todo._id"
+      @confirmDelete="(isShow = $event), (isLoading = !$event)"
     ></popup-confirm>
   </div>
 </template>
 
 <script>
 import PopupConfirm from "./layouts/PopupConfirm";
+import Loading from "./layouts/Loading.vue";
+import { mapActions } from "vuex";
 export default {
-  components: { PopupConfirm },
+  components: { PopupConfirm, Loading },
   name: "todo-item",
   props: {
     todo: {
@@ -54,26 +57,23 @@ export default {
   },
   data() {
     return {
-      id: this.todo._id,
-      description: this.todo.description,
-      completed: this.todo.completed,
       edit: false,
       isShow: false,
+      isLoading: false,
     };
   },
+  watch: {
+    todo() {
+      this.isLoading = false;
+    },
+  },
   methods: {
+    ...mapActions({
+      deleteTask: "todos/deleteTask/removeTodo",
+      updateTask: "todos/editTask/updateTodo",
+    }),
     showPopup() {
       this.isShow = true;
-    },
-    removeTodo() {
-      this.$store
-        .dispatch("todos/removeTodo", this.id)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
     },
     editTodo() {
       this.edit = !this.edit;
@@ -82,13 +82,14 @@ export default {
       this.edit = false;
     },
     doneEdit() {
-      if (this.description.trim() == "") {
+      this.edit = false;
+      if (this.todo.description.trim() == "") {
         return;
       }
-      this.$store.dispatch("todos/updateTodo", {
-        id: this.id,
-        description: this.description,
-        completed: this.completed,
+      this.updateTask({
+        id: this.todo._id,
+        description: this.todo.description,
+        completed: this.todo.completed,
       });
     },
   },
