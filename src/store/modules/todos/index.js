@@ -17,16 +17,6 @@ const state = () => ({
     filter: 'all',
 })
 const getters = {
-    todosFiltered(s) {
-        if (s.filter == 'all') {
-            return s.todos
-        } else if (s.filter == 'new') {
-            return s.todos.filter(todo => todo.completed === false)
-        } else if (s.filter == 'completed') {
-            return s.todos.filter(todo => todo.completed === true)
-        }
-        return s.todos
-    }
 }
 const mutations = {
     SET_LIST: (s, todos) => {
@@ -38,6 +28,9 @@ const mutations = {
         s.todos.splice(index, 1)
     },
     FILTER_TASK: (s, filter) => {
+        s.todos = filter.reverse()
+    },
+    FILTER_TODOS: (s, filter) => {
         s.filter = filter
     }
 }

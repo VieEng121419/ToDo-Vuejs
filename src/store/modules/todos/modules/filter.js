@@ -1,9 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import Axios from '@/plugins/api'
-
-Vue.use(Vuex)
-
 const state = {
 }
 const getters = {
@@ -12,19 +7,19 @@ const getters = {
 const mutations = {
 }
 const actions = {
-    async getListTodo({ commit }, filter) {
+    async updateFilter({ commit }, filter) {
         try {
-            const listTask = await Axios({
+            const listFilter = await Axios({
                 method: 'get',
-                url: `task`
+                url: `task/?completed=${filter.stt}`
             })
-            commit('todos/SET_LIST', listTask.data.data, { root: true })
-            commit('todos/FILTER_TODOS', filter, { root: true })
+            commit('todos/FILTER_TASK', listFilter.data.data, { root: true })
+            commit('todos/FILTER_TODOS', filter.filter, { root: true })
         }
         catch (err) {
             console.log(err)
         }
-    },
+    }
 }
 
 export default {

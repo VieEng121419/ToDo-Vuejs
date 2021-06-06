@@ -5,7 +5,7 @@
       <input
         type="text"
         class="todo__input"
-        placeholder="What need to be done"
+        placeholder="What need to be done?"
         v-model="newTodo"
         @keyup.enter="addTodo"
         :disabled="isDisable"
@@ -14,28 +14,33 @@
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
-    <todo-filter></todo-filter>
+    <div class="function__button">
+      <pagination></pagination>
+      <todo-filter></todo-filter>
+    </div>
     <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
 import Loading from "./layouts/Loading.vue";
+import Pagination from "./layouts/Pagination.vue";
 import TodoItem from "./TodoItem.vue";
 import TodoFilter from "./TodoFilter.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { TodoItem, Loading, TodoFilter },
+  components: { TodoItem, Loading, TodoFilter, Pagination },
   data() {
     return {
       newTodo: "",
       isLoading: false,
       isDisable: false,
+      skip: 0,
     };
   },
   computed: {
     listTodo() {
-      return this.$store.getters['todos/todosFiltered'];
+      return this.$store.state.todos.todos;
     },
   },
   watch: {
@@ -62,7 +67,7 @@ export default {
   mounted() {},
   created() {
     this.isLoading = true;
-    this.getListTodo();
+    this.getListTodo("all");
   },
 };
 </script>

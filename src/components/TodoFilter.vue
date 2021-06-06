@@ -1,32 +1,58 @@
 <template>
   <div class="filter__container">
-    <button :class="[{ active: filter == 'all' }]" @click="change('all')">
-      <span>All</span>
-    </button>
-    <button :class="[{ active: filter == 'new' }]" @click="change('new')">
+    <button
+      :class="[{ active: filter == 'new' }]"
+      @click="change(false, 'new')"
+    >
       <span>New</span>
     </button>
     <button
       :class="[{ active: filter == 'completed' }]"
-      @click="change('completed')"
+      @click="change(true, 'completed')"
     >
       <span>Completed</span>
     </button>
+    <button :class="[{ active: filter == 'all' }]" @click="all('all')">
+      <span>All</span>
+    </button>
+    <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
+import Loading from "./layouts/Loading.vue";
 import { mapActions } from "vuex";
 export default {
+  components: {
+    Loading,
+  },
+  data() {
+    return {
+      isLoading: false,
+    };
+  },
   computed: {
     filter() {
       return this.$store.state.todos.filter;
     },
   },
+  watch: {
+    filter() {
+      this.isLoading = false;
+    },
+  },
   methods: {
-    ...mapActions({ changeFilter: "todos/filterTask/updateFilter" }),
-    change(filter) {
-      this.changeFilter(filter);
+    ...mapActions({
+      changeFilter: "todos/filterTask/updateFilter",
+      getListTodo: "todos/getList/getListTodo",
+    }),
+    change(stt, filter) {
+      this.isLoading = true;
+      this.changeFilter({ stt, filter });
+    },
+    all(filter) {
+      this.isLoading = true;
+      this.getListTodo(filter);
     },
   },
 };
@@ -38,7 +64,7 @@ export default {
   display: flex;
   justify-content: flex-end;
   button {
-    width: 10%;
+    width: 70px;
     margin-left: 10px;
     border-radius: 50px;
     border: 1px solid #f0f0f0;
