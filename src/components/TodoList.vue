@@ -14,6 +14,7 @@
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
+    <todo-filter></todo-filter>
     <loading v-if="isLoading"></loading>
   </div>
 </template>
@@ -21,9 +22,10 @@
 <script>
 import Loading from "./layouts/Loading.vue";
 import TodoItem from "./TodoItem.vue";
+import TodoFilter from "./TodoFilter.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { TodoItem, Loading },
+  components: { TodoItem, Loading, TodoFilter },
   data() {
     return {
       newTodo: "",
@@ -33,7 +35,7 @@ export default {
   },
   computed: {
     listTodo() {
-      return this.$store.state.todos.todos;
+      return this.$store.getters['todos/todosFiltered'];
     },
   },
   watch: {
