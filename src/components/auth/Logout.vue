@@ -14,6 +14,23 @@ export default {
       isLoading: true,
     };
   },
+  computed: {
+    errorText() {
+      return this.$store.state.account.error;
+    },
+  },
+  watch: {
+    errorText() {
+      if (this.errorText !== "") {
+        this.$notify({
+          group: "error",
+          title: this.errorText,
+        });
+        this.isLoading = false;
+        this.$router.push({ name: "todo" });
+      }
+    },
+  },
   methods: {
     ...mapActions({ logout: "account/logout/logoutUser" }),
   },

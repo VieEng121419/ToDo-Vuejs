@@ -12,6 +12,7 @@
             <input
               type="text"
               placeholder="Type your name"
+              @blur="statusErr = true"
               v-model.trim="$v.name.$model"
               :class="{ 'form-groups--error': $v.name.$error }"
             />
@@ -46,6 +47,7 @@
             <input
               type="text"
               placeholder="Type your age"
+              @blur="statusErr = true"
               :class="{ 'form-groups--error': $v.age.$error }"
               v-model.trim.lazy="$v.age.$model"
             />
@@ -134,6 +136,7 @@ export default {
       check: true,
       isLoading: true,
       isEdit: false,
+      statusErr: false,
     };
   },
   validations: {
@@ -151,9 +154,38 @@ export default {
       minValue: minValue(10),
     },
   },
+  computed: {
+    errorText() {
+      return this.$store.state.profile.error;
+    },
+    errorContent() {
+      return this.$store.state.profile.errorData;
+    },
+  },
   watch: {
     url() {
       this.isLoading = false;
+    },
+    errorText() {
+      if (this.errorText !== "") {
+        if (this.errorContent !== "") {
+          this.$notify({
+            group: "error",
+            title: this.errorContent,
+          });
+        } else {
+          this.$notify({
+            group: "error",
+            title: this.errorText,
+          });
+        }
+        this.$notify({
+          group: "error",
+          title: this.errorText,
+        });
+        this.isEdit = false;
+        this.isLoading = false;
+      }
     },
   },
   methods: {
@@ -185,15 +217,16 @@ export default {
       this.uploadAva(this.file);
     },
     submitEdit() {
-      this.isEdit = true;
       this.$v.$touch();
       if (this.$v.$invalid) {
-        console.log("fail");
+        this.statusErr = true;
       } else {
+        this.isEdit = true;
         this.editUser({ name: this.name, age: this.age });
       }
     },
   },
+
   created() {
     const userInfo = JSON.parse(localStorage.getItem("todo")).auth.user;
     this.id = userInfo._id;

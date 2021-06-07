@@ -5,6 +5,7 @@ import Axios from '@/plugins/api'
 Vue.use(Vuex)
 
 const state = {
+    error: ''
 }
 const getters = {
 
@@ -22,7 +23,7 @@ const actions = {
             commit('todos/FILTER_TODOS', filter.filter, { root: true })
         }
         catch (err) {
-            console.log(err)
+            commit('todos/ERROR', err.response, { root: true })
         }
     },
 }

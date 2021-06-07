@@ -10,13 +10,18 @@ const modules = {
     edit, avatar
 }
 const state = {
-
+    error: '',
+    errorData: ''
 }
 const getters = {
 
 }
 const mutations = {
-
+    ERROR: (s, error) => {
+        s.error = error.status + " " + error.statusText + " "
+        s.errorData = error.data.error
+    },
+    RESET_ERROR: s => s.error = '',
 }
 const actions = {
 

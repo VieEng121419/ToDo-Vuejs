@@ -3,9 +3,14 @@
     <div class="todo-item-left">
       <input
         type="checkbox"
-        class="todo-checkbox"
         v-model="todo.completed"
-        @change="doneEdit"
+        class="todo-checkbox"
+        @click.prevent="
+          doneEdit({
+            description: todo.description,
+            completed: !todo.completed,
+          })
+        "
       />
       <div
         v-if="!edit"
@@ -24,7 +29,16 @@
     </div>
     <div class="todo-item-right">
       <span class="edit-item">
-        <i v-if="edit" class="fas fa-check" @click="doneEdit"></i>
+        <i
+          v-if="edit"
+          class="fas fa-check"
+          @click="
+            doneEdit({
+              description: todo.description,
+              completed: todo.completed,
+            })
+          "
+        ></i>
       </span>
       <span v-if="!todo.completed" class="edit-item" @click="editTodo">
         <i class="fas fa-pen"></i>
@@ -81,15 +95,16 @@ export default {
     cancelEdit() {
       this.edit = false;
     },
-    doneEdit() {
+    doneEdit(info) {
+      this.isLoading = true;
       this.edit = false;
       if (this.todo.description.trim() == "") {
         return;
       }
       this.updateTask({
         id: this.todo._id,
-        description: this.todo.description,
-        completed: this.todo.completed,
+        description: info.description,
+        completed: info.completed,
       });
     },
   },

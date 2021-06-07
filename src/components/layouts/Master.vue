@@ -17,6 +17,11 @@
       </li>
     </ul>
     <router-view></router-view>
+    <notifications
+      group="error"
+      animation-type="velocity"
+      position="top center"
+    />
   </div>
 </template>
 

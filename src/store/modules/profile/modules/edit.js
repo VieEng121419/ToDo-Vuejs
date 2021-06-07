@@ -16,6 +16,7 @@ const mutations = {
 }
 const actions = {
     async editUser({ commit }, infoEdit) {
+        commit('profile/RESET_ERROR', null, { root: true })
         try {
             const newData = await Axios({
                 method: 'put',
@@ -31,7 +32,7 @@ const actions = {
             router.push({ name: "todo" });
         }
         catch (err) {
-            console.log(err)
+            commit('profile/ERROR', err.response, { root: true })
         }
         finally {
             commit('LOADED')

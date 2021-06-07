@@ -8,6 +8,7 @@ const mutations = {
 }
 const actions = {
     async updateFilter({ commit }, filter) {
+        commit('todos/RESET_ERROR', null, { root: true })
         try {
             const listFilter = await Axios({
                 method: 'get',
@@ -17,7 +18,7 @@ const actions = {
             commit('todos/FILTER_TODOS', filter.filter, { root: true })
         }
         catch (err) {
-            console.log(err)
+            commit('todos/ERROR', err.response, { root: true })
         }
     }
 }

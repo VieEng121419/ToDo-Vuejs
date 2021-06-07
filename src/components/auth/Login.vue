@@ -28,6 +28,7 @@
             <input
               type="password"
               placeholder="Type your password"
+              @blur="statusErr = true"
               :class="{ 'form-group--error': $v.password.$error }"
               v-model.trim="$v.password.$model"
             />
@@ -92,13 +93,29 @@ export default {
     },
     ...mapActions({ loginUser: "account/login/loginUser" }),
     submiLogin() {
-      this.isLoading = true;
       console.log("submit");
       this.$v.$touch();
       if (this.$v.$invalid) {
-        console.log("fail");
+        this.statusErr = true;
       } else {
+        this.isLoading = true;
         this.loginUser({ email: this.email, password: this.password });
+      }
+    },
+  },
+  computed: {
+    errorText() {
+      return this.$store.state.account.error;
+    },
+  },
+  watch: {
+    errorText() {
+      if (this.errorText !== "") {
+        this.$notify({
+          group: "error",
+          title: this.errorText,
+        });
+        this.isLoading = false;
       }
     },
   },

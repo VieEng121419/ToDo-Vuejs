@@ -42,11 +42,23 @@ export default {
     listTodo() {
       return this.$store.state.todos.todos;
     },
+    errorText() {
+      return this.$store.state.todos.error;
+    },
   },
   watch: {
     listTodo() {
       this.isLoading = false;
       this.isDisable = false;
+    },
+    errorText() {
+      if (this.errorText !== "") {
+        this.$notify({
+          group: "error",
+          title: this.errorText,
+        });
+        this.isLoading = false;
+      }
     },
   },
   methods: {

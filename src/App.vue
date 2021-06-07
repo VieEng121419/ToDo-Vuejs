@@ -39,12 +39,12 @@ export default {
     if (this.$store.state.account.register.resgisAlert === true) {
       this.message = "Register Successfully!";
       this.showModal();
-      this.$store.state.account.register.resgisAlert;
+      this.$store.state.account.register.resgisAlert = false;
     }
     if (this.$store.state.profile.edit.editAlert === true) {
       this.message = "Edit Successfully!";
       this.showModal();
-      this.$store.state.editAlert = false;
+      this.$store.state.profile.edit.editAlert = false;
     }
     if (this.$store.state.profile.avatar.updateAva.avaAlert === true) {
       this.message = "Avatar Updated!";

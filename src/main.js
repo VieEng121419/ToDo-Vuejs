@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
+import Notifications from 'vue-notification'
+import velocity from 'velocity-animate'
 import { router } from './router/router'
 import Master from './components/layouts/Master'
 import Modal from './plugins/popup'
@@ -13,6 +15,7 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
 Vue.use(Modal)
+Vue.use(Notifications, { velocity })
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {

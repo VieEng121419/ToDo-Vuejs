@@ -11,13 +11,15 @@ const modules = {
     login, logout, register
 }
 const state = {
+    error: ''
 }
 const getters = {
 }
 const mutations = {
-    REMOVE_TOKEN: state => {
-        state.token = null
-    }
+    ERROR: (s, error) => {
+        s.error = error.status + " " + error.statusText
+    },
+    RESET_ERROR: s => s.error = '',
 }
 
 export default {

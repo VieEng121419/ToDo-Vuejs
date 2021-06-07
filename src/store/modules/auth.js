@@ -11,6 +11,7 @@ const mutations = {
     SET_TOKEN: (s, token) => (s.accessToken = token),
     SET_USER: (s, user) => (s.user = user),
     RESET: s => Object.assign(s, state()),
+    
 }
 
 const actions = {}

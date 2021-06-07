@@ -18,6 +18,7 @@ const mutations = {
 }
 const actions = {
     async uploadImg({ commit }, data) {
+        commit('profile/RESET_ERROR', null, { root: true })
         const formData = new FormData()
         formData.append('avatar', data)
         try {
@@ -32,7 +33,8 @@ const actions = {
             router.push({ name: "todo" });
         }
         catch (err) {
-            console.log(err)
+            console.log(err.response.data.error)
+            commit('profile/ERROR', err.response, { root: true })
         }
         finally {
             commit('LOADED')

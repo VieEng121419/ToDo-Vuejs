@@ -14,6 +14,7 @@ const mutations = {
 }
 const actions = {
     async logoutUser({ commit }) {
+        commit('account/RESET_ERROR', null, { root: true })
         try {
             await Axios({
                 method: 'post',
@@ -23,7 +24,7 @@ const actions = {
             router.push({ name: "login" });
         }
         catch (err) {
-            console.log(err)
+            commit('account/ERROR', err.response, { root: true })
         }
         finally {
             commit('LOADED')

@@ -11,6 +11,7 @@ import Logout from '../components/auth/Logout.vue'
 import Profile from '../components/layouts/Profile.vue'
 
 export const router = new VueRouter({
+    mode: 'history',
     routes: [
         { path: '/', name: 'home', component: Home },
         { path: '/todo', name: 'todo', component: App, meta: { requiresAuth: true } },

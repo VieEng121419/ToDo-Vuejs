@@ -35,6 +35,7 @@
             <input
               type="email"
               placeholder="Type your email"
+              @blur="statusErr = true"
               v-model.trim="$v.email.$model"
               :class="{ 'form-groups--error': $v.email.$error }"
             />
@@ -51,6 +52,7 @@
             <input
               type="text"
               placeholder="Type your age"
+              @blur="statusErr = true"
               :class="{ 'form-groups--error': $v.age.$error }"
               v-model.trim.lazy="$v.age.$model"
             />
@@ -67,6 +69,7 @@
             <input
               type="password"
               placeholder="Type your password"
+              @blur="statusErr = true"
               :class="{ 'form-groups--error': $v.password.$error }"
               v-model.trim="$v.password.$model"
             />
@@ -87,6 +90,7 @@
             <input
               type="password"
               placeholder="Type your password again"
+              @blur="statusErr = true"
               :class="{ 'form-groups--error': $v.confirmPassword.$error }"
               v-model.trim="$v.confirmPassword.$model"
             />
@@ -168,20 +172,34 @@ export default {
       };
       this.$modal.show(params);
     },
-    async submitRegister() {
-      this.isLoading = true;
-      console.log("submit");
+    submitRegister() {
       this.$v.$touch();
       if (this.$v.$invalid) {
-        //
-        console.log("fail");
+        this.statusErr = true;
       } else {
+        this.isLoading = true;
         this.addUser({
           name: this.name,
           email: this.email,
           age: this.age,
           password: this.password,
         });
+      }
+    },
+  },
+  computed: {
+    errorText() {
+      return this.$store.state.account.error;
+    },
+  },
+  watch: {
+    errorText() {
+      if (this.errorText !== "") {
+        this.$notify({
+          group: "error",
+          title: this.errorText,
+        });
+        this.isLoading = false;
       }
     },
   },

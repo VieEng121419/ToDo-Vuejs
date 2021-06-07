@@ -14,6 +14,7 @@ const mutations = {
 }
 const actions = {
     async removeTodo({ commit }, idTodo) {
+        commit('todos/RESET_ERROR', null, { root: true })
         try {
             await Axios({
                 method: 'delete',
@@ -22,7 +23,7 @@ const actions = {
             commit('todos/DELETE_TASK', idTodo, { root: true })
         }
         catch (err) {
-            console.log(err)
+            commit('todos/ERROR', err.response, { root: true })
         }
     },
 }

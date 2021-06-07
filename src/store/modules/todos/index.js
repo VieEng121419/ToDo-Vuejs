@@ -15,6 +15,7 @@ const modules = {
 const state = () => ({
     todos: [],
     filter: 'all',
+    error: ''
 })
 const getters = {
 }
@@ -32,6 +33,14 @@ const mutations = {
     },
     FILTER_TODOS: (s, filter) => {
         s.filter = filter
+    },
+    ERROR: (s, error) => {
+        s.error = error.status + " " + error.statusText
+    },
+    RESET_ERROR: s => s.error = '',
+    UPDATE_TASK: (s, newData) => {
+        const index = s.todos.findIndex(todo => todo._id === newData._id)
+        s.todos.splice(index, 1, newData)
     }
 }
 const actions = {
