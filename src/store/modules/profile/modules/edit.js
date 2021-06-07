@@ -27,7 +27,7 @@ const actions = {
                     age: infoEdit.age
                 }
             })
-            commit('auth/UPDATE_DATA', newData.data.data, { root: true })
+            commit('auth/SET_USER', newData.data.data, { root: true })
             router.push({ name: "todo" });
         }
         catch (err) {

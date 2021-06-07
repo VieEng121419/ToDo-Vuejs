@@ -19,7 +19,7 @@ const actions = {
                 method: 'post',
                 url: 'user/logout',
             })
-            commit('auth/DELETE_DATA', null, { root: true })
+            commit('auth/RESET', null, { root: true })
             router.push({ name: "login" });
         }
         catch (err) {

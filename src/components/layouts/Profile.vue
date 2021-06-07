@@ -193,9 +193,6 @@ export default {
         this.editUser({ name: this.name, age: this.age });
       }
     },
-    getAvatar() {
-      this.getImageUser(this.id);
-    },
   },
   created() {
     const userInfo = JSON.parse(localStorage.getItem("todo")).auth.user;
@@ -204,7 +201,7 @@ export default {
     this.email = userInfo.email;
     this.age = userInfo.age;
     this.isLoading = true;
-    this.getAvatar();
+    this.getImageUser(this.id);
   },
   mounted() {
     this.url = `https://api-nodejs-todolist.herokuapp.com/${localStorage.getItem(
