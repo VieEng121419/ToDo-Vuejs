@@ -67,7 +67,7 @@ export default {
   mounted() {},
   created() {
     this.isLoading = true;
-    this.getListTodo("all");
+    this.getListTodo({ filter: "all", skip: this.skip });
   },
 };
 </script>

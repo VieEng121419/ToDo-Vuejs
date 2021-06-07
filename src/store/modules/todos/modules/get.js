@@ -16,10 +16,10 @@ const actions = {
         try {
             const listTask = await Axios({
                 method: 'get',
-                url: `task`
+                url: `task?limit=4&skip=${filter.skip}`
             })
             commit('todos/SET_LIST', listTask.data.data, { root: true })
-            commit('todos/FILTER_TODOS', filter, { root: true })
+            commit('todos/FILTER_TODOS', filter.filter, { root: true })
         }
         catch (err) {
             console.log(err)
