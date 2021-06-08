@@ -10,7 +10,7 @@
         @keyup.enter="addTodo"
         :disabled="isDisable"
       />
-      <button class="todo__button" @click="addTodo">Add</button>
+      <button class="todo__button" @click="addTodo"><i class="fas fa-plus"></i></button>
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>

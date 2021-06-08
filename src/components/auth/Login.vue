@@ -3,7 +3,7 @@
     <popup></popup>
     <div class="container">
       <div class="title__register">
-        <h1>Login</h1>
+        <h1>LOGIN</h1>
       </div>
       <div class="form__register">
         <form class="form" @submit.prevent="submiLogin">

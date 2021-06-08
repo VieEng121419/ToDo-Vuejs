@@ -1,6 +1,11 @@
 @import "../layouts/todofilter";
+@import '~/../src/styles/abstracts/variables';
+@import '~/../src/styles/abstracts/mixin';
 .todo-list {
   width: 60%;
+  @include respond(mobile){
+    width:90%;
+  }
   .todo__title {
     margin-bottom: 35px;
   }
@@ -13,6 +18,10 @@
   padding: 14px 18px;
   font-size: 18px;
   margin-bottom: 16px;
+  @include respond(mobile){
+    padding: 20px 18px;
+    border-radius: 50px !important;
+  }
   &:focus {
     outline: 0;
   }
@@ -22,6 +31,9 @@
   position: absolute;
   top: 4.5px;
   right: 4.5px;
+   @include respond(mobile){
+    width: 15%;
+  }
 }
 .todo-item {
   margin-bottom: 12px;
@@ -53,6 +65,7 @@
     margin-bottom: 0;
   }
 }
+.todo-item-right
 .todo-item-label {
   padding: 10px;
   margin-left: 12px;
