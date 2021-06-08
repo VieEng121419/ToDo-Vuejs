@@ -10,11 +10,11 @@ const getters = {
 
 }
 const mutations = {
-
 }
 const actions = {
     async addTodo({ commit }, description) {
         commit('todos/RESET_ERROR', null, { root: true })
+        commit('todos/RESET_PAGE', null, { root: true })
         try {
             const infoTask = await Axios({
                 method: 'post',
@@ -22,6 +22,7 @@ const actions = {
                 data: { description }
             })
             commit('todos/ADD_TASK', infoTask.data.data, { root: true })
+            commit('todos/UPDATE_PAGE', null, { root: true })
         }
         catch (err) {
             commit('todos/ERROR', err.response, { root: true })

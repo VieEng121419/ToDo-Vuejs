@@ -17,14 +17,15 @@ export default {
   data() {
     return {
       isDelete: false,
-      isLoading: false,
-      yes: true,
-      no: false,
     };
   },
   methods: {
-    ...mapActions({ deleteTask: "todos/deleteTask/removeTodo" }),
+    ...mapActions({
+      deleteTask: "todos/deleteTask/removeTodo",
+      getAllList: "todos/getAll/getAllList",
+    }),
     DeleteTask() {
+      this.isDelete = true;
       this.$emit("confirmDelete", this.isDelete);
       this.removeTodo();
     },
@@ -32,8 +33,10 @@ export default {
       this.isDelete = false;
       this.$emit("confirmDelete", this.isDelete);
     },
-    removeTodo() {
-      this.deleteTask(this.id);
+    async removeTodo() {
+      this.isDelete = false;
+      await this.deleteTask(this.id);
+      await this.getAllList();
     },
   },
 };

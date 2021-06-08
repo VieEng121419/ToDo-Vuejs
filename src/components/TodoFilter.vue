@@ -29,11 +29,15 @@ export default {
   data() {
     return {
       isLoading: false,
+      pageIndex: 1,
     };
   },
   computed: {
     filter() {
       return this.$store.state.todos.filter;
+    },
+    count() {
+      return this.$store.state.todos.count;
     },
   },
   watch: {
@@ -47,12 +51,10 @@ export default {
       getListTodo: "todos/getList/getListTodo",
     }),
     change(stt, filter) {
-      this.isLoading = true;
       this.changeFilter({ stt, filter });
     },
     all(filter) {
-      this.isLoading = true;
-      this.getListTodo(filter);
+      this.getListTodo({ filter: filter, limit: 4, skip: this.count - 1 * 4 });
     },
   },
 };

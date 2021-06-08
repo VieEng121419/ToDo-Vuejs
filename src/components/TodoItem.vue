@@ -51,7 +51,7 @@
     <popup-confirm
       v-if="isShow"
       :id="todo._id"
-      @confirmDelete="(isShow = $event), (isLoading = !$event)"
+      @confirmDelete="isShow = $event"
     ></popup-confirm>
   </div>
 </template>
@@ -74,17 +74,20 @@ export default {
       edit: false,
       isShow: false,
       isLoading: false,
+      stt: false,
+      filter: "",
     };
   },
   watch: {
     todo() {
       this.isLoading = false;
+      this.isShow = false;
     },
   },
   methods: {
     ...mapActions({
-      deleteTask: "todos/deleteTask/removeTodo",
       updateTask: "todos/editTask/updateTodo",
+      changeFilter: "todos/filterTask/updateFilter",
     }),
     showPopup() {
       this.isShow = true;
@@ -95,17 +98,25 @@ export default {
     cancelEdit() {
       this.edit = false;
     },
-    doneEdit(info) {
+    async doneEdit(info) {
       this.isLoading = true;
       this.edit = false;
+      if (info.completed) {
+        this.stt = false;
+        this.filter = "new";
+      } else {
+        this.stt = true;
+        this.filter = "completed";
+      }
       if (this.todo.description.trim() == "") {
         return;
       }
-      this.updateTask({
+      await this.updateTask({
         id: this.todo._id,
         description: info.description,
         completed: info.completed,
       });
+      await this.changeFilter({ stt: this.stt, filter: this.filter });
     },
   },
 };

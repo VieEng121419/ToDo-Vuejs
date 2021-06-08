@@ -123,7 +123,7 @@ export default {
     if (this.$store.state.account.logout.outAlert === true) {
       this.message = "Logout Successfully!";
       this.showModal();
-      this.$store.state.auth.outAlert = false;
+      this.$store.state.account.logout.outAlert = false;
     }
   },
 };
