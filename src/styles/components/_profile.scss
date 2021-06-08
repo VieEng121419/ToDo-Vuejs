@@ -1,3 +1,5 @@
+@import '~/../src/styles/abstracts/variables';
+@import '~/../src/styles/abstracts/mixin';
 .todo__container {
 	width: 100%;
 	display: flex;
@@ -11,6 +13,13 @@
 	background: #fff;
 	border-radius: 7px;
 	box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+	@include respond(largeMobile){
+    	height: 100vh;
+		margin-top: 100px;
+  	}
+	@include respond(mobile){
+    	flex-direction: column;
+  	}
 }
 .profile__title {
 	padding: 20px;
@@ -23,6 +32,12 @@
 	flex-wrap: wrap;
 	height: auto;
 	background: #f7fafc;
+	@include respond(largeMobile){
+    	flex-direction: column;
+  	}
+	@include respond(mobile){
+    	flex-direction: column;
+  	}
 }
 .form__title {
 	flex: 0 1 100%;
@@ -40,10 +55,25 @@
 	padding-left: 60px;
 	padding-right: 60px;
 	flex: 1 0 60%;
+	@include respond(largeMobile){
+		width: 100%;
+		padding: 20px;
+    	justify-content: center;
+		align-items: center;
+		margin-top: 30px;
+  	}
+	@include respond(mobile){
+		width: 100%;
+		padding: 20px;
+    	justify-content: center;
+		align-items: center;
+		margin-top: 30px;
+  	}
 }
 form {
 	width: 100%;
 	display: inline-block;
+	z-index: 0;
 }
 .user__profile {
 	width: 40%;
@@ -52,6 +82,18 @@ form {
 	float: right;
 	padding-right: 60px;
 	flex: 1 0 40%;
+	@include respond(largeMobile){
+		width: 100%;
+		padding: 0;
+    	justify-content: center;
+		align-items: center
+  	}
+	@include respond(mobile){
+		width: 100%;
+		padding: 0;
+    	justify-content: center;
+		align-items: center
+  	}
 }
 .user__img {
 	position: relative;

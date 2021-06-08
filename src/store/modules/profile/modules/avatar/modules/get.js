@@ -12,23 +12,21 @@ const getters = {
 
 }
 const mutations = {
-    IMG_URL: (state, url) => {
-        state.url = url
-        localStorage.setItem('url', url)
-    },
+    
 }
 const actions = {
     async getAvatar({ commit }, id) {
+        commit('profile/RESET_ERROR', null, { root: true })
         try {
             const url = await Axios({
                 method: 'get',
                 url: `user/${id}/avatar`,
 
             })
-            commit('IMG_URL', url.config.url)
+            commit('auth/IMG_URL', url.config.url, {root:true})
         }
         catch (err) {
-            console.log(err)
+             commit('profile/ERROR', err.response, { root: true })
         }
     },
 }

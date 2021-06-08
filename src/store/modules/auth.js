@@ -1,6 +1,7 @@
 const state = () => ({
     accessToken: '',
     user: '',
+    url: '',
 })
 
 const getters = {
@@ -11,7 +12,9 @@ const mutations = {
     SET_TOKEN: (s, token) => (s.accessToken = token),
     SET_USER: (s, user) => (s.user = user),
     RESET: s => Object.assign(s, state()),
-    
+    IMG_URL: (state, url) => {
+        state.url = url
+    },
 }
 
 const actions = {}

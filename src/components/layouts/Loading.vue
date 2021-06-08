@@ -20,13 +20,13 @@ export default {};
   left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
-  height: 100vh;
+  height: 150vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #000;
   opacity: 0.9;
-  z-index: 6;
+  z-index: 9;
   .lds-ring {
     display: inline-block;
     position: relative;

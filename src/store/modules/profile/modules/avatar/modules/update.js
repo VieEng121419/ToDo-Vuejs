@@ -33,7 +33,6 @@ const actions = {
             router.push({ name: "todo" });
         }
         catch (err) {
-            console.log(err.response.data.error)
             commit('profile/ERROR', err.response, { root: true })
         }
         finally {

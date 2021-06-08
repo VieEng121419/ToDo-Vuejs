@@ -76,18 +76,18 @@ export default {
     justify-content: center;
     align-items: center;
     span {
-      color: #e75b35;
+      color: #3ab397;
       font-size: 10px;
     }
     &:hover {
       border: none;
-      background: #e75b35;
+      background: #3aaf9f !important;
       span {
         color: #fff;
       }
     }
     &.active {
-      background: #e75b35 !important;
+      background: #3ab397 !important;
       border: none !important;
       span {
         color: #fff;

@@ -5,7 +5,45 @@
     <h3 class="profile__title">My Account</h3>
     <div class="container__form--profile">
       <p class="form__title">USER INFORMATION</p>
-      <div v-if="statusEdit" class="form__edit">
+
+      <div class="user__profile">
+        <form @submit.prevent="uploadImg">
+          <div class="user__img">
+            <loading v-if="isLoading"></loading>
+            <img :src="url" alt="avatar" />
+            <div class="input__img">
+              <input
+                type="file"
+                name="img"
+                id="img"
+                ref="file"
+                class="avatar"
+                accept="image/*"
+                @change="onFileChange"
+              />
+              <label for="img">Choose</label>
+            </div>
+          </div>
+          <button
+            v-if="isSave"
+            style="width: 23%; display: block; margin: 10px auto;"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+        <div class="info">
+          <div class="info__name">
+            <h6>
+              {{ name }} <span>, {{ age }}</span>
+            </h6>
+          </div>
+          <div class="info__email">
+            <h6>{{ email }}</h6>
+          </div>
+        </div>
+      </div>
+      <div class="form__edit">
         <form @submit.prevent="submitEdit">
           <div class="form-groups">
             <label for="">Name</label>
@@ -62,46 +100,6 @@
           </div>
         </form>
       </div>
-      <div class="user__profile">
-        <form @submit.prevent="uploadImg">
-          <div class="user__img">
-            <loading v-if="isLoading"></loading>
-            <img :src="url" alt="avatar" />
-            <div class="input__img">
-              <input
-                type="file"
-                name="img"
-                id="img"
-                ref="file"
-                class="avatar"
-                accept="image/*"
-                @change="onFileChange"
-              />
-              <label for="img">Choose</label>
-            </div>
-          </div>
-          <button
-            v-if="isSave"
-            style="width: 5%; display: block; margin: 10px auto;"
-            type="submit"
-          >
-            Save
-          </button>
-        </form>
-        <div class="info">
-          <div class="info__name">
-            <h6>
-              {{ name }} <span>, {{ age }}</span>
-            </h6>
-          </div>
-          <div class="info__email">
-            <h6>{{ email }}</h6>
-          </div>
-        </div>
-        <div class="button__info">
-          <button class="btn" @click="changeEdit()">Edit</button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -122,13 +120,12 @@ export default {
   },
   data() {
     return {
-      statusEdit: false,
       Info: {},
       id: "",
       name: "",
       email: "",
       age: 0,
-      url: "",
+      url: '',
       isSave: false,
       file: "",
       image: "",
@@ -237,9 +234,11 @@ export default {
     this.getImageUser(this.id);
   },
   mounted() {
-    this.url = `https://api-nodejs-todolist.herokuapp.com/${localStorage.getItem(
-      "url"
-    )}`;
+    if(JSON.parse(localStorage.getItem("todo")).auth.url !== ''){
+      this.url = `https://api-nodejs-todolist.herokuapp.com/${JSON.parse(localStorage.getItem("todo")).auth.url}`;
+    }else{
+      this.url = require('@/assets/avatar-default.png')
+    }
   },
 };
 </script>

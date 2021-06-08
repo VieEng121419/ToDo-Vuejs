@@ -3,6 +3,15 @@
 @import '~/../src/styles/abstracts/mixin';
 .todo-list {
   width: 60%;
+  @include respond(des){
+    width:90%;
+  }
+  @include respond(largeTablet){
+    width:95%;
+  }
+  @include respond(largeMobile){
+    width:95%;
+  }
   @include respond(mobile){
     width:90%;
   }
@@ -15,9 +24,22 @@
 }
 .todo__input {
   width: 100%;
-  padding: 14px 18px;
+  padding: 20px 18px;
   font-size: 18px;
   margin-bottom: 16px;
+  border-radius: 50px !important;
+  @include respond(des){
+    padding: 20px 18px;
+    border-radius: 50px !important;
+  }
+  @include respond(largeTablet){
+    padding: 20px 18px;
+    border-radius: 50px !important;
+  }
+  @include respond(largeMobile){
+    padding: 20px 18px;
+    border-radius: 50px !important;
+  }
   @include respond(mobile){
     padding: 20px 18px;
     border-radius: 50px !important;
@@ -27,10 +49,19 @@
   }
 }
 .todo__button {
-  width: 9%;
+  width: 5.6%;
   position: absolute;
   top: 4.5px;
   right: 4.5px;
+  @include respond(des){
+    width: 5.6%;
+  }
+  @include respond(largeTablet){
+    width: 7.3%;
+  }
+  @include respond(largeMobile){
+    width: 12.5%;
+  }
    @include respond(mobile){
     width: 15%;
   }
@@ -48,6 +79,7 @@
   cursor: pointer;
   .fa-check {
     margin-right: 25px;
+    margin-left: 21px;
   }
 }
 .remove-item {
@@ -65,7 +97,11 @@
     margin-bottom: 0;
   }
 }
-.todo-item-right
+.todo-item-right{
+  display: flex;
+  align-items: center;
+  margin-right: 17px;
+}
 .todo-item-label {
   padding: 10px;
   margin-left: 12px;

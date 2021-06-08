@@ -7,15 +7,19 @@
   background: #fff;
   @include respond(des){
     width: 87%;
+    height: 70vh;
   }
   @include respond(largeTablet){
     width: 87%;
+    height: 70vh;
   }
   @include respond(largeMobile){
     width: 87%;
+    height: 70vh;
   }
   @include respond(mobile){
     width: 87%;
+    height: 70vh;
   }
 }
 .title__register {

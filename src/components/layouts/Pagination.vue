@@ -1,9 +1,9 @@
 <template>
   <div class="button__pagination">
-    <button type="button" :disabled="isDisablePrev" @click="prev">
+    <button type="button" :disabled="isDisablePrev" :class="{disablePrev: isDisablePrev}" @click="prev">
       <i class="fas fa-angle-left"></i>
     </button>
-    <button type="button" :disabled="isDisableNext" @click="next">
+    <button type="button" :disabled="isDisableNext" :class="{disableNext: isDisableNext}" @click="next">
       <i class="fas fa-angle-right"></i>
     </button>
   </div>
@@ -85,8 +85,7 @@ export default {
 <style lang="scss">
 .button__pagination {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 23px;
   button {
     width: 35px;
     height: 35px;
@@ -94,6 +93,20 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    &.disableNext{
+      background: #fff !important;
+      border: 1px solid #3aaf9f;
+      i{
+        color: #3aaf9f;
+      }
+    }
+     &.disablePrev{
+       background: #fff !important;
+      border: 1px solid #3aaf9f;
+      i{
+        color: #3aaf9f;
+      }
+    }
   }
 }
 </style>
