@@ -1,5 +1,22 @@
 <template>
-  <div>
+  <div class="popup__container">
+    <div class="popup__container" v-if="isShowPopUp">
+      <div class="modal-wrapper">
+        <img class="modal-img" src="@/assets/check.png" alt="check" />
+        <h2 class="modal-title">{{ message }}</h2>
+        <div class="modal-buttons">
+          <button
+            class="modal-button"
+            style="margin-right: 20px;"
+            @click="confirm"
+          >
+            Yes
+          </button>
+          <button class="modal-button" @click="back">No</button>
+        </div>
+      </div>
+      <div class="popup__fill"></div>
+    </div>
     <loading v-if="isLoading"></loading>
   </div>
 </template>
@@ -11,7 +28,9 @@ export default {
   components: { Loading },
   data() {
     return {
-      isLoading: true,
+      isLoading: false,
+      isShowPopUp: true,
+      message: "",
     };
   },
   computed: {
@@ -33,12 +52,29 @@ export default {
   },
   methods: {
     ...mapActions({ logout: "account/logout/logoutUser" }),
+    showModal() {
+      const params = {
+        text: this.message,
+        check: this.check,
+        onConfirm: () => {
+          return this.alertFunc();
+        },
+      };
+      this.$modal.show(params);
+    },
+    confirm() {
+      this.isLoading = true;
+      this.isShowPopUp = false;
+      this.logout();
+    },
+    back() {
+      this.$router.push({ name: "todo" });
+    },
   },
-  created() {
-    this.isLoading = true;
-    this.logout();
+  mounted() {
+    this.message = "Do you want to log out?";
   },
 };
 </script>
 
-<style></style>
+<style lang="scss"></style>

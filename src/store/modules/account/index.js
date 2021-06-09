@@ -11,13 +11,15 @@ const modules = {
     login, logout, register
 }
 const state = {
-    error: ''
+    error: '',
+    errorData: ''
 }
 const getters = {
 }
 const mutations = {
     ERROR: (s, error) => {
-        s.error = error.status + " " + error.statusText
+        s.error = error.status + " " + error.statusText + " "
+        s.errorData = error.data
     },
     RESET_ERROR: s => s.error = '',
 }

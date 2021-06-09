@@ -189,7 +189,7 @@ export default {
   },
   computed: {
     errorText() {
-      return this.$store.state.account.error;
+      return this.$store.state.account.errorData;
     },
   },
   watch: {

@@ -17,27 +17,7 @@ Vue.use(VueRouter)
 Vue.use(Modal)
 Vue.use(Notifications, { velocity })
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!store.getters['auth/loggedIn']) {
-      next({
-        name: 'login'
-      })
-    } else {
-      next()
-    }
-  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-    if (store.getters['auth/loggedIn']) {
-      next({
-        name: 'todo'
-      })
-    } else {
-      next()
-    }
-  } else {
-    next()
-  }
-})
+
 
 
 new Vue({

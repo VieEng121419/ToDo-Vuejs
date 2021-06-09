@@ -22,7 +22,7 @@ const actions = {
         const formData = new FormData()
         formData.append('avatar', data)
         try {
-            await Axios({
+            const url = await Axios({
                 method: 'post',
                 url: `user/me/avatar`,
                 data: formData,
@@ -30,6 +30,8 @@ const actions = {
                     'Content-Type': 'multipart/form-data'
                 }
             })
+            console.log(url)
+            // commit('auth/IMG_URL', url.config.url, { root: true })
             router.push({ name: "todo" });
         }
         catch (err) {

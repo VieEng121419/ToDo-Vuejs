@@ -125,7 +125,7 @@ export default {
       name: "",
       email: "",
       age: 0,
-      url: '',
+      url: "",
       isSave: false,
       file: "",
       image: "",
@@ -176,10 +176,6 @@ export default {
             title: this.errorText,
           });
         }
-        this.$notify({
-          group: "error",
-          title: this.errorText,
-        });
         this.isEdit = false;
         this.isLoading = false;
       }
@@ -223,22 +219,17 @@ export default {
       }
     },
   },
-
-  created() {
+  async created() {
     const userInfo = JSON.parse(localStorage.getItem("todo")).auth.user;
     this.id = userInfo._id;
     this.name = userInfo.name;
     this.email = userInfo.email;
     this.age = userInfo.age;
     this.isLoading = true;
-    this.getImageUser(this.id);
-  },
-  mounted() {
-    if(JSON.parse(localStorage.getItem("todo")).auth.url !== ''){
-      this.url = `https://api-nodejs-todolist.herokuapp.com/${JSON.parse(localStorage.getItem("todo")).auth.url}`;
-    }else{
-      this.url = require('@/assets/avatar-default.png')
-    }
+    await this.getImageUser(this.id);
+    this.url = await `https://api-nodejs-todolist.herokuapp.com/${
+      JSON.parse(localStorage.getItem("todo")).auth.imgUrl
+    }`;
   },
 };
 </script>

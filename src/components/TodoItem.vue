@@ -59,7 +59,7 @@
 <script>
 import PopupConfirm from "./layouts/PopupConfirm";
 import Loading from "./layouts/Loading.vue";
-import { mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   components: { PopupConfirm, Loading },
   name: "todo-item",
@@ -75,8 +75,13 @@ export default {
       isShow: false,
       isLoading: false,
       stt: false,
-      filter: "",
     };
+  },
+  computed: {
+    ...mapState({
+      filterName: (state) => state.todos.filter,
+      count: (state) => state.todos.count,
+    }),
   },
   watch: {
     todo() {
@@ -88,6 +93,7 @@ export default {
     ...mapActions({
       updateTask: "todos/editTask/updateTodo",
       changeFilter: "todos/filterTask/updateFilter",
+      getAllList: "todos/getAll/getAllList",
     }),
     showPopup() {
       this.isShow = true;
@@ -101,13 +107,6 @@ export default {
     async doneEdit(info) {
       this.isLoading = true;
       this.edit = false;
-      if (info.completed) {
-        this.stt = false;
-        this.filter = "new";
-      } else {
-        this.stt = true;
-        this.filter = "completed";
-      }
       if (this.todo.description.trim() == "") {
         return;
       }
@@ -116,7 +115,13 @@ export default {
         description: info.description,
         completed: info.completed,
       });
-      await this.changeFilter({ stt: this.stt, filter: this.filter });
+      if (this.filterName === "all") {
+        await this.getAllList();
+      } else if (this.filterName === "new") {
+        await this.changeFilter({ stt: false, filter: this.filterName });
+      } else {
+        await this.changeFilter({ stt: true, filter: this.filterName });
+      }
     },
   },
 };
