@@ -4,7 +4,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import App from '../App'
-import Home from '../components/layouts/Home.vue'
 import Register from '../components/auth/Register.vue'
 import Login from '../components/auth/Login.vue'
 import Logout from '../components/auth/Logout.vue'
@@ -14,7 +13,7 @@ import store from '@/store/index'
 export const router = new VueRouter({
     mode: 'history',
     routes: [
-        { path: '/', name: 'home', component: Home },
+        { path: '/', name: 'todo', component: App, meta: { requiresAuth: true } },
         { path: '/todo', name: 'todo', component: App, meta: { requiresAuth: true } },
         { path: '/register', name: 'register', component: Register, meta: { requiresVisitor: true } },
         { path: '/login', name: 'login', component: Login, meta: { requiresVisitor: true } },

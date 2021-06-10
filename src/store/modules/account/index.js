@@ -21,7 +21,7 @@ const mutations = {
         s.error = error.status + " " + error.statusText + " "
         s.errorData = error.data
     },
-    RESET_ERROR: s => s.error = '',
+    RESET_ERROR: s => { s.error = ''; s.errorData = '' }
 }
 
 export default {

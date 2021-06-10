@@ -121,8 +121,10 @@ export default {
   },
   mounted() {
     if (this.$store.state.account.logout.outAlert === true) {
-      this.message = "Logout Successfully!";
-      this.showModal();
+      this.$notify({
+        group: "error",
+        title: "Logout Successfully!",
+      });
       this.$store.state.account.logout.outAlert = false;
     }
   },
