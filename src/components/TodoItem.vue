@@ -1,21 +1,25 @@
 <template>
   <div class="todo-item">
     <div class="todo-item-left">
-      <input
-        type="checkbox"
-        v-model="todo.completed"
-        class="todo-checkbox"
-        @click.prevent="
-          doneEdit({
-            description: todo.description,
-            completed: !todo.completed,
-          })
-        "
-      />
+      <div class="checkbox">
+        <input
+          type="checkbox"
+          v-model="todo.completed"
+          class="todo-checkbox"
+          @click.prevent="
+            doneEdit({
+              description: todo.description,
+              completed: !todo.completed,
+            })
+          "
+        />
+      </div>
       <div
         v-if="!edit"
         class="todo-item-label"
-        :class="{ completed: todo.completed }"
+        @click="isActive = !isActive"
+        :class="{ completed: todo.completed, active: isActive }"
+        title="Edit "
       >
         {{ todo.description }}
       </div>
@@ -75,6 +79,7 @@ export default {
       isShow: false,
       isLoading: false,
       stt: false,
+      isActive: false,
     };
   },
   computed: {

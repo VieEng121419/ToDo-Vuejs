@@ -37,12 +37,18 @@
     </ul>
     <router-view></router-view>
     <notifications
-      classes="notifi"
+      classes="notifi__success"
+      group="success"
+      animation-type="velocity"
+      position="top center"
+      width="500px"
+    />
+    <notifications
+      classes="notifi__error"
       group="error"
       animation-type="velocity"
       position="top center"
       width="500px"
-      type="warn"
     />
   </div>
 </template>
@@ -150,12 +156,24 @@ export default {
     text-transform: uppercase;
   }
 }
-.notifi {
+.notifi__success {
   padding: 20px;
   margin: 0 5px 5px;
   font-size: 12px;
   color: #ffffff;
   background: #68cc86;
+  .notification-title {
+    font-size: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+.notifi__error {
+  padding: 20px;
+  margin: 0 5px 5px;
+  font-size: 12px;
+  color: #ffffff;
+  background: rgb(206, 63, 63);
   .notification-title {
     font-size: 15px;
     font-weight: bold;

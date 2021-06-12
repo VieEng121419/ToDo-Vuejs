@@ -6,11 +6,22 @@
         type="text"
         class="todo__input"
         placeholder="What need to be done?"
-        v-model="newTodo"
+        v-model="$v.newTodo.$model"
         @keyup.enter="addTodo"
         :disabled="isDisable"
       />
-      <button class="todo__button" @click="addTodo"><i class="fas fa-plus"></i></button>
+      <div v-if="statusErr" class="err">
+        <div class="error" v-if="!$v.newTodo.required">
+          Task content is required
+        </div>
+        <div class="error" v-if="!$v.newTodo.maxLength">
+          Task content must have less then
+          {{ $v.newTodo.$params.maxLength.max }} letters.
+        </div>
+      </div>
+      <button class="todo__button" @click="addTodo">
+        <i class="fas fa-plus"></i>
+      </button>
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
@@ -23,6 +34,7 @@
 </template>
 
 <script>
+import { required, maxLength } from "vuelidate/lib/validators";
 import Loading from "./layouts/Loading.vue";
 import Pagination from "./layouts/Pagination.vue";
 import TodoItem from "./TodoItem.vue";
@@ -36,7 +48,14 @@ export default {
       isLoading: false,
       isDisable: false,
       isPagination: true,
+      statusErr: false,
     };
+  },
+  validations: {
+    newTodo: {
+      required,
+      maxLength: maxLength(50),
+    },
   },
   computed: {
     ...mapState({
@@ -94,14 +113,16 @@ export default {
       addTask: "todos/addTask/addTodo",
     }),
     async addTodo() {
-      this.isLoading = true;
-      this.isDisable = true;
-      if (this.newTodo.trim().length == 0) {
-        return;
+      if (this.newTodo.trim().length == 0 || this.$v.$invalid) {
+        this.statusErr = true;
+      } else {
+        this.statusErr = false;
+        this.isLoading = true;
+        this.isDisable = true;
+        await this.addTask(this.newTodo);
+        this.newTodo = "";
+        await this.getAllList();
       }
-      await this.addTask(this.newTodo);
-      this.newTodo = "";
-      await this.getAllList();
     },
   },
   async created() {

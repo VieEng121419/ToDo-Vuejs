@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from '@/plugins/api'
-import { router } from '@/router/router'
 
 Vue.use(Vuex)
 
@@ -29,7 +28,6 @@ const actions = {
                 }
             })
             commit('auth/SET_USER', newData.data.data, { root: true })
-            router.push({ name: "todo" });
         }
         catch (err) {
             commit('profile/ERROR', err.response, { root: true })

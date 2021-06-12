@@ -25,7 +25,7 @@ export default {};
   justify-content: center;
   align-items: center;
   background: #000;
-  opacity: 0.9;
+  opacity: 0.3;
   z-index: 9;
   .lds-ring {
     display: inline-block;

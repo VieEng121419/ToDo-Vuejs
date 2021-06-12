@@ -41,16 +41,6 @@ export default {
       this.showModal();
       this.$store.state.account.register.resgisAlert = false;
     }
-    if (this.$store.state.profile.edit.editAlert === true) {
-      this.message = "Edit Successfully!";
-      this.showModal();
-      this.$store.state.profile.edit.editAlert = false;
-    }
-    if (this.$store.state.profile.avatar.updateAva.avaAlert === true) {
-      this.message = "Avatar Updated!";
-      this.showModal();
-      this.$store.state.profile.avatar.updateAva.avaAlert = false;
-    }
   },
 };
 </script>

@@ -1,104 +1,108 @@
 <template>
-  <div class="container__profile">
+  <div class="container__profile--page">
     <popup></popup>
-    <loading v-if="isEdit"></loading>
-    <h3 class="profile__title">My Account</h3>
-    <div class="container__form--profile">
-      <p class="form__title">USER INFORMATION</p>
+    <div class="container__profile">
+      <loading v-if="isEdit"></loading>
+      <h3 class="profile__title">My Account</h3>
+      <div class="container__form--profile">
+        <p class="form__title">USER INFORMATION</p>
 
-      <div class="user__profile">
-        <form @submit.prevent="uploadImg">
-          <div class="user__img">
-            <loading v-if="isLoading"></loading>
-            <img :src="url" alt="avatar" />
-            <div class="input__img">
-              <input
-                type="file"
-                name="img"
-                id="img"
-                ref="file"
-                class="avatar"
-                accept="image/*"
-                @change="onFileChange"
-              />
-              <label for="img">Choose</label>
+        <div class="user__profile">
+          <form @submit.prevent="uploadImg">
+            <div class="user__img">
+              <loading v-if="isLoading"></loading>
+              <img :src="url" alt="avatar" />
+              <div class="input__img">
+                <input
+                  type="file"
+                  name="img"
+                  id="img"
+                  ref="file"
+                  class="avatar"
+                  accept="image/*"
+                  @change="onFileChange"
+                />
+                <label for="img">Choose</label>
+              </div>
+            </div>
+            <button
+              v-if="isSave"
+              style="width: 23%; display: block; margin: 10px auto;"
+              type="submit"
+            >
+              Save
+            </button>
+          </form>
+          <div class="info">
+            <div class="info__name">
+              <h6>
+                {{ name }} <span>, {{ age }}</span>
+              </h6>
+            </div>
+            <div class="info__email">
+              <h6>{{ email }}</h6>
             </div>
           </div>
-          <button
-            v-if="isSave"
-            style="width: 23%; display: block; margin: 10px auto;"
-            type="submit"
-          >
-            Save
-          </button>
-        </form>
-        <div class="info">
-          <div class="info__name">
-            <h6>
-              {{ name }} <span>, {{ age }}</span>
-            </h6>
-          </div>
-          <div class="info__email">
-            <h6>{{ email }}</h6>
-          </div>
         </div>
-      </div>
-      <div class="form__edit">
-        <form @submit.prevent="submitEdit">
-          <div class="form-groups">
-            <label for="">Name</label>
-            <input
-              type="text"
-              placeholder="Type your name"
-              @blur="statusErr = true"
-              v-model.trim="$v.name.$model"
-              :class="{ 'form-groups--error': $v.name.$error }"
-            />
-          </div>
-          <!-- validate name -->
-          <div class="error" v-if="!$v.name.required">Field is required</div>
-          <div class="error" v-if="!$v.name.minLength">
-            Name must have at least {{ $v.name.$params.minLength.min }} letters.
-          </div>
-          <div class="error" v-if="!$v.name.maxLength">
-            Name must have at most {{ $v.name.$params.maxLength.max }} letters.
-          </div>
-          <!-- validate name -->
+        <div class="form__edit">
+          <form @submit.prevent="submitEdit">
+            <div class="form-groups">
+              <label for="">Name</label>
+              <input
+                type="text"
+                placeholder="Type your name"
+                @blur="statusErr = true"
+                v-model.trim="$v.name.$model"
+                :class="{ 'form-groups--error': $v.name.$error }"
+              />
+            </div>
+            <!-- validate name -->
+            <div class="error" v-if="!$v.name.required">Field is required</div>
+            <div class="error" v-if="!$v.name.minLength">
+              Name must have at least
+              {{ $v.name.$params.minLength.min }} letters.
+            </div>
+            <div class="error" v-if="!$v.name.maxLength">
+              Name must have at most
+              {{ $v.name.$params.maxLength.max }} letters.
+            </div>
+            <!-- validate name -->
 
-          <div class="form-groups">
-            <label for="">Email</label>
-            <input
-              type="email"
-              placeholder="Type your email"
-              v-model.trim="$v.email.$model"
-              :class="{ 'form-groups--error': $v.email.$error }"
-              disabled
-            />
-          </div>
-          <!-- validate email -->
-          <div class="error" v-if="!$v.email.required">Field is required</div>
-          <div class="error" v-if="!$v.email.email">Email must be valid</div>
-          <!-- validate email -->
+            <div class="form-groups">
+              <label for="">Email</label>
+              <input
+                type="email"
+                placeholder="Type your email"
+                v-model.trim="$v.email.$model"
+                :class="{ 'form-groups--error': $v.email.$error }"
+                disabled
+              />
+            </div>
+            <!-- validate email -->
+            <div class="error" v-if="!$v.email.required">Field is required</div>
+            <div class="error" v-if="!$v.email.email">Email must be valid</div>
+            <!-- validate email -->
 
-          <div class="form-groups">
-            <label for="">Age</label>
-            <input
-              type="text"
-              placeholder="Type your age"
-              @blur="statusErr = true"
-              :class="{ 'form-groups--error': $v.age.$error }"
-              v-model.trim.lazy="$v.age.$model"
-            />
-          </div>
-          <!-- validate age -->
-          <div class="error" v-if="!$v.age.minValue">
-            Age must have at least {{ $v.age.$params.minValue.min }}
-          </div>
-          <!-- validate age -->
-          <div class="form-group">
-            <button type="submit">Save</button>
-          </div>
-        </form>
+            <div class="form-groups">
+              <label for="">Age</label>
+              <input
+                type="text"
+                placeholder="Type your age"
+                @blur="statusErr = true"
+                :class="{ 'form-groups--error': $v.age.$error }"
+                v-model.trim.lazy="$v.age.$model"
+              />
+            </div>
+            <!-- validate age -->
+            <div class="error" v-if="!$v.age.minValue">
+              Age must have at least {{ $v.age.$params.minValue.min }}
+            </div>
+            <!-- validate age -->
+            <div class="form-group">
+              <button type="submit">Save</button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -158,6 +162,12 @@ export default {
     errorContent() {
       return this.$store.state.profile.errorData;
     },
+    alertEdit() {
+      return this.$store.state.profile.edit.editAlert;
+    },
+    updateAva() {
+      return this.$store.state.profile.avatar.updateAva.avaAlert;
+    },
   },
   watch: {
     url() {
@@ -178,6 +188,22 @@ export default {
         }
         this.isEdit = false;
         this.isLoading = false;
+      }
+    },
+    alertEdit() {
+      if (this.alertEdit) {
+        this.isEdit = false;
+        this.message = "Edit Successfully!";
+        this.showModal();
+        this.$store.state.profile.edit.editAlert = false;
+      }
+    },
+    updateAva() {
+      if (this.updateAva) {
+        this.isEdit = false;
+        this.message = "Avatar Updated!";
+        this.showModal();
+        this.$store.state.profile.avatar.updateAva.avaAlert = false;
       }
     },
   },
@@ -218,6 +244,19 @@ export default {
         this.editUser({ name: this.name, age: this.age });
       }
     },
+  },
+  mounted() {
+    if (this.$store.state.profile.avatar.updateAva.avaAlert === true) {
+      this.isEdit = false;
+      this.message = "Avatar Updated!";
+      this.showModal();
+      this.$store.state.profile.avatar.updateAva.avaAlert = false;
+    }
+    if (this.$store.state.profile.edit.editAlert === true) {
+      this.message = "Edit Successfully!";
+      this.showModal();
+      this.$store.state.profile.edit.editAlert = false;
+    }
   },
   async created() {
     const userInfo = JSON.parse(localStorage.getItem("todo")).auth.user;

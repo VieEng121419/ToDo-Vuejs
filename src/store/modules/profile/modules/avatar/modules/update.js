@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from '@/plugins/api'
-import { router } from '@/router/router'
 
 Vue.use(Vuex)
 
@@ -31,8 +30,6 @@ const actions = {
                 }
             })
             console.log(url)
-            // commit('auth/IMG_URL', url.config.url, { root: true })
-            router.push({ name: "todo" });
         }
         catch (err) {
             commit('profile/ERROR', err.response, { root: true })

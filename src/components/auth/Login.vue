@@ -122,7 +122,7 @@ export default {
   mounted() {
     if (this.$store.state.account.logout.outAlert === true) {
       this.$notify({
-        group: "error",
+        group: "success",
         title: "Logout Successfully!",
       });
       this.$store.state.account.logout.outAlert = false;

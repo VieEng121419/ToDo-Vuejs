@@ -72,6 +72,7 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
 }
 .edit-item {
   font-size: 13px;
@@ -107,6 +108,14 @@
   margin-left: 12px;
   margin-bottom: 5px;
   font-size: 15px;
+  width: 400px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  &.active {
+    width: 100%;
+    white-space: normal;
+  }
 }
 .todo-item-edit {
   margin-bottom: 5px;
@@ -127,10 +136,6 @@
 }
 .name-container {
   margin-bottom: 16px;
-}
-
-.active {
-  background: lightgreen;
 }
 .todo__popup {
   position: absolute;
