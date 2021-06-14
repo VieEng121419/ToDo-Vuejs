@@ -7,7 +7,7 @@
         placeholder="Type your age"
         @blur="sttError = true"
         :class="{ 'form-groups--error': $v.age.$error }"
-        v-model.trim.lazy="$v.age.$model"
+        v-model.trim.lazy.number="$v.age.$model"
       />
     </div>
     <!-- validate age -->
@@ -26,20 +26,28 @@ export default {
     statusErr: {
       type: Boolean,
     },
+    ageUser: {
+      type: Number,
+    },
   },
   data() {
     return {
-      age: 0,
       sttError: false,
+      age: 0,
     };
   },
   watch: {
     age() {
-      this.$emit("age", this.age);
+      if (this.age === "") {
+        this.age = 0;
+      } else this.$emit("age", this.age);
     },
     statusErr() {
       this.sttError = true;
     },
+  },
+  created() {
+    this.age = this.ageUser;
   },
   validations: {
     age: {

@@ -33,6 +33,9 @@ export default {
     statusErr: {
       type: Boolean,
     },
+    nameUser: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -40,7 +43,6 @@ export default {
       sttError: false,
     };
   },
-
   watch: {
     name() {
       this.$emit("name", this.name);
@@ -48,6 +50,9 @@ export default {
     statusErr() {
       this.sttError = true;
     },
+  },
+  created() {
+    this.name = this.nameUser;
   },
   validations: {
     name: {

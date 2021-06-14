@@ -11,7 +11,7 @@
           <form @submit.prevent="uploadImg">
             <div class="user__img">
               <loading v-if="isLoading"></loading>
-              <img :src="url"/>
+              <img :src="url" />
               <div class="input__img">
                 <input
                   type="file"
@@ -46,58 +46,21 @@
         </div>
         <div class="form__edit">
           <form @submit.prevent="submitEdit">
-            <div class="form-groups">
-              <label for="">Name</label>
-              <input
-                type="text"
-                placeholder="Type your name"
-                @blur="statusErr = true"
-                v-model.trim="$v.name.$model"
-                :class="{ 'form-groups--error': $v.name.$error }"
-              />
-            </div>
-            <!-- validate name -->
-            <div class="error" v-if="!$v.name.required">Field is required</div>
-            <div class="error" v-if="!$v.name.minLength">
-              Name must have at least
-              {{ $v.name.$params.minLength.min }} letters.
-            </div>
-            <div class="error" v-if="!$v.name.maxLength">
-              Name must have at most
-              {{ $v.name.$params.maxLength.max }} letters.
-            </div>
-            <!-- validate name -->
-
+            <name
+              @name="name = $event"
+              :statusErr="statusErr"
+              :nameUser="name"
+            />
             <div class="form-groups">
               <label for="">Email</label>
               <input
                 type="email"
                 placeholder="Type your email"
                 v-model.trim="$v.email.$model"
-                :class="{ 'form-groups--error': $v.email.$error }"
                 disabled
               />
             </div>
-            <!-- validate email -->
-            <div class="error" v-if="!$v.email.required">Field is required</div>
-            <div class="error" v-if="!$v.email.email">Email must be valid</div>
-            <!-- validate email -->
-
-            <div class="form-groups">
-              <label for="">Age</label>
-              <input
-                type="text"
-                placeholder="Type your age"
-                @blur="statusErr = true"
-                :class="{ 'form-groups--error': $v.age.$error }"
-                v-model.trim.lazy="$v.age.$model"
-              />
-            </div>
-            <!-- validate age -->
-            <div class="error" v-if="!$v.age.minValue">
-              Age must have at least {{ $v.age.$params.minValue.min }}
-            </div>
-            <!-- validate age -->
+            <age @age="age = $event" :statusErr="statusErr" :ageUser="age" />
             <div class="form-group">
               <button type="submit">Save</button>
             </div>
@@ -118,9 +81,13 @@ import {
 } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 import Loading from "../layouts/Loading";
+import Name from "../base/input/Name.vue";
+import Age from "../base/input/Age.vue";
 export default {
   components: {
     Loading,
+    Name,
+    Age,
   },
   data() {
     return {
