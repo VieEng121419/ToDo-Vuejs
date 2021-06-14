@@ -6,102 +6,15 @@
       </div>
       <div class="form__register">
         <form class="form" @submit.prevent="submitRegister">
-          <div class="form-groups">
-            <label for="">Name</label>
-            <input
-              type="text"
-              placeholder="Type your name"
-              @blur="statusErr = true"
-              v-model.trim="$v.name.$model"
-              :class="{ 'form-groups--error': $v.name.$error }"
-            />
-          </div>
-          <!-- validate name -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.name.required">Field is required</div>
-            <div class="error" v-if="!$v.name.minLength">
-              Name must have at least
-              {{ $v.name.$params.minLength.min }} letters.
-            </div>
-            <div class="error" v-if="!$v.name.maxLength">
-              Name must have at most
-              {{ $v.name.$params.maxLength.max }} letters.
-            </div>
-          </div>
-          <!-- validate name -->
-
-          <div class="form-groups">
-            <label for="">Email</label>
-            <input
-              type="email"
-              placeholder="Type your email"
-              @blur="statusErr = true"
-              v-model.trim="$v.email.$model"
-              :class="{ 'form-groups--error': $v.email.$error }"
-            />
-          </div>
-          <!-- validate email -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.email.required">Field is required</div>
-            <div class="error" v-if="!$v.email.email">Email must be valid</div>
-          </div>
-          <!-- validate email -->
-
-          <div class="form-groups">
-            <label for="">Age</label>
-            <input
-              type="text"
-              placeholder="Type your age"
-              @blur="statusErr = true"
-              :class="{ 'form-groups--error': $v.age.$error }"
-              v-model.trim.lazy="$v.age.$model"
-            />
-          </div>
-          <!-- validate age -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.age.minValue">
-              Age must have at least {{ $v.age.$params.minValue.min }}
-            </div>
-          </div>
-          <!-- validate age -->
-          <div class="form-groups">
-            <label for="">Password</label>
-            <input
-              type="password"
-              placeholder="Type your password"
-              @blur="statusErr = true"
-              :class="{ 'form-groups--error': $v.password.$error }"
-              v-model.trim="$v.password.$model"
-            />
-          </div>
-          <!-- validate password -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.password.required">
-              Password is required.
-            </div>
-            <div class="error" v-if="!$v.password.minLength">
-              Password must have at least
-              {{ $v.password.$params.minLength.min }} letters.
-            </div>
-          </div>
-          <!-- validate password -->
-          <div class="form-groups">
-            <label for="">Confirm Password</label>
-            <input
-              type="password"
-              placeholder="Type your password again"
-              @blur="statusErr = true"
-              :class="{ 'form-groups--error': $v.confirmPassword.$error }"
-              v-model.trim="$v.confirmPassword.$model"
-            />
-          </div>
-          <!-- validate confirm -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.confirmPassword.sameAsPassword">
-              Passwords must be identical.
-            </div>
-          </div>
-          <!-- validate confirm -->
+          <name @name="name = $event" :statusErr="statusErr" />
+          <email @email="email = $event" :statusErr="statusErr" />
+          <age @age="age = $event" :statusErr="statusErr" />
+          <password @password="password = $event" :statusErr="statusErr" />
+          <confirm-pass
+            @confirmPassword="confirmPassword = $event"
+            :statusErr="statusErr"
+            :password="password"
+          />
           <div class="form-groups">
             <button type="submit">Register</button>
           </div>
@@ -122,9 +35,14 @@ import {
   email,
 } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
+import Name from "../base/input/Name.vue";
+import Email from "../base/input/Email.vue";
+import Age from "../base/input/Age.vue";
+import Password from "../base/input/Password.vue";
+import ConfirmPass from "../base/input/ConfirmPass.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { Loading },
+  components: { Loading, Name, Email, Age, Password, ConfirmPass },
   data() {
     return {
       name: "",

@@ -11,7 +11,7 @@
           <form @submit.prevent="uploadImg">
             <div class="user__img">
               <loading v-if="isLoading"></loading>
-              <img :src="url" alt="avatar" />
+              <img :src="url"/>
               <div class="input__img">
                 <input
                   type="file"

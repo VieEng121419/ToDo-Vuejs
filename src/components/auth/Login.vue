@@ -7,43 +7,8 @@
       </div>
       <div class="form__register">
         <form class="form" @submit.prevent="submiLogin">
-          <div class="form-group">
-            <label for="">Email</label>
-            <input
-              type="email"
-              placeholder="Type your email"
-              @blur="statusErr = true"
-              v-model.trim="$v.email.$model"
-              :class="{ 'form-group--error': $v.email.$error }"
-            />
-          </div>
-          <!-- validate email -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.email.required">Field is required</div>
-            <div class="error" v-if="!$v.email.email">Email must be valid</div>
-          </div>
-          <!-- validate email -->
-          <div class="form-group">
-            <label for="">Password</label>
-            <input
-              type="password"
-              placeholder="Type your password"
-              @blur="statusErr = true"
-              :class="{ 'form-group--error': $v.password.$error }"
-              v-model.trim="$v.password.$model"
-            />
-          </div>
-          <!-- validate password -->
-          <div v-if="statusErr" class="err">
-            <div class="error" v-if="!$v.password.required">
-              Password is required.
-            </div>
-            <div class="error" v-if="!$v.password.minLength">
-              Password must have at least
-              {{ $v.password.$params.minLength.min }} letters.
-            </div>
-          </div>
-          <!-- validate password -->
+          <email @email="email = $event" :statusErr="statusErr" />
+          <password @password="password = $event" :statusErr="statusErr" />
           <div class="form-group">
             <button type="submit">Login</button>
           </div>
@@ -55,11 +20,13 @@
 </template>
 
 <script>
-import { required, minLength, email } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
+import Email from "../base/input/Email.vue";
+import Password from "../base/input/Password.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { Loading },
+  components: { Loading, Email, Password },
   data() {
     return {
       email: "",
@@ -73,11 +40,9 @@ export default {
   validations: {
     email: {
       required,
-      email,
     },
     password: {
       required,
-      minLength: minLength(5),
     },
   },
   methods: {
@@ -93,7 +58,6 @@ export default {
     },
     ...mapActions({ loginUser: "account/login/loginUser" }),
     submiLogin() {
-      console.log("submit");
       this.$v.$touch();
       if (this.$v.$invalid) {
         this.statusErr = true;
