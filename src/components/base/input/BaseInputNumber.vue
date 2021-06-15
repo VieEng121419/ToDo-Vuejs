@@ -1,28 +1,33 @@
 <template>
-  <div>
+  <div class="form-groups">
     <div class="form-groups">
-      <label for="">Age</label>
+      <TextBase component="label">{{ label }}</TextBase>
       <input
         type="text"
-        placeholder="Type your age"
+        placeholder="Type your name"
         @blur="sttError = true"
-        :class="{ 'form-groups--error': $v.age.$error }"
-        v-model.trim.lazy.number="$v.age.$model"
+        v-model.trim.lazy.number="$v.value.$model"
       />
     </div>
-    <!-- validate age -->
+    <!-- validate number-->
     <div v-if="sttError" class="err">
-      <div class="error" v-if="!$v.age.minValue">
-        Age must have at least {{ $v.age.$params.minValue.min }}
+      <div class="error" v-if="!$v.value.minValue">
+        {{ label }} must have at least {{ $v.value.$params.minValue.min }}
       </div>
     </div>
+    <!-- validate number-->
   </div>
 </template>
 
 <script>
 import { required, minValue } from "vuelidate/lib/validators";
+import TextBase from "../TextBase.vue";
 export default {
+  components: { TextBase },
   props: {
+    label: {
+      type: String,
+    },
     statusErr: {
       type: Boolean,
     },
@@ -32,29 +37,31 @@ export default {
   },
   data() {
     return {
+      value: 0,
       sttError: false,
-      age: 0,
     };
   },
   watch: {
-    age() {
-      if (this.age === "") {
-        this.age = 0;
-      } else this.$emit("age", this.age);
+    value() {
+      if (this.value === "") {
+        this.value = 0;
+      } else this.$emit("input", this.value);
     },
     statusErr() {
       this.sttError = true;
     },
   },
   created() {
-    this.age = this.ageUser;
+    this.value = this.ageUser;
   },
+
   validations: {
-    age: {
+    value: {
       required,
       minValue: minValue(10),
     },
   },
+  
 };
 </script>
 

@@ -3,10 +3,13 @@
     <popup></popup>
     <div class="container__profile">
       <loading v-if="isEdit"></loading>
-      <h3 class="profile__title">My Account</h3>
+      <TextBase component="h3" class="profile__title">{{
+        "My Account"
+      }}</TextBase>
       <div class="container__form--profile">
-        <p class="form__title">USER INFORMATION</p>
-
+        <TextBase component="p" class="form__title">{{
+          "USER INFOMATION"
+        }}</TextBase>
         <div class="user__profile">
           <form @submit.prevent="uploadImg">
             <div class="user__img">
@@ -25,45 +28,38 @@
                 <label for="img">Choose</label>
               </div>
             </div>
-            <button
-              v-if="isSave"
-              style="width: 23%; display: block; margin: 10px auto;"
-              type="submit"
-            >
-              Save
-            </button>
+            <div>
+              <Button :title="'Save'" v-if="isSave" :type="'avatar'" />
+            </div>
           </form>
           <div class="info">
             <div class="info__name">
-              <h6>
-                {{ name }} <span>, {{ age }}</span>
-              </h6>
+              <TextBase component="h6">{{ name }}, {{ age }}</TextBase>
             </div>
             <div class="info__email">
-              <h6>{{ email }}</h6>
+              <TextBase component="h6">{{ email }}</TextBase>
             </div>
           </div>
         </div>
         <div class="form__edit">
           <form @submit.prevent="submitEdit">
-            <name
-              @name="name = $event"
+            <BaseInputText
+              label="Name"
+              @input="name = $event"
               :statusErr="statusErr"
               :nameUser="name"
-            />
+            ></BaseInputText>
             <div class="form-groups">
               <label for="">Email</label>
-              <input
-                type="email"
-                placeholder="Type your email"
-                v-model.trim="$v.email.$model"
-                disabled
-              />
+              <input v-model="email" disabled />
             </div>
-            <age @age="age = $event" :statusErr="statusErr" :ageUser="age" />
-            <div class="form-group">
-              <button type="submit">Save</button>
-            </div>
+            <BaseInputNumber
+              label="Age"
+              @input="age = $event"
+              :statusErr="statusErr"
+              :ageUser="age"
+            ></BaseInputNumber>
+            <Button :title="'Save'" :type="'form'" />
           </form>
         </div>
       </div>
@@ -81,13 +77,17 @@ import {
 } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 import Loading from "../layouts/Loading";
-import Name from "../base/input/Name.vue";
-import Age from "../base/input/Age.vue";
+import BaseInputText from "../base/input/BaseInputText.vue";
+import BaseInputNumber from "../base/input/BaseInputNumber.vue";
+import Button from "../base/Button.vue";
+import TextBase from "../base/TextBase.vue";
 export default {
   components: {
     Loading,
-    Name,
-    Age,
+    Button,
+    TextBase,
+    BaseInputText,
+    BaseInputNumber,
   },
   data() {
     return {

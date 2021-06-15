@@ -6,18 +6,33 @@
       </div>
       <div class="form__register">
         <form class="form" @submit.prevent="submitRegister">
-          <name @name="name = $event" :statusErr="statusErr" />
-          <email @email="email = $event" :statusErr="statusErr" />
-          <age @age="age = $event" :statusErr="statusErr" />
-          <password @password="password = $event" :statusErr="statusErr" />
-          <confirm-pass
-            @confirmPassword="confirmPassword = $event"
+          <BaseInputText
+            label="Name"
+            @input="name = $event"
             :statusErr="statusErr"
-            :password="password"
+          ></BaseInputText>
+          <BaseInputText
+            label="Email"
+            @input="email = $event"
+            :statusErr="statusErr"
+          ></BaseInputText>
+          <BaseInputNumber
+            label="Age"
+            @input="age = $event"
+            :statusErr="statusErr"
+          ></BaseInputNumber>
+          <BaseInputPassword
+            label="Password"
+            @input="password = $event"
+            :statusErr="statusErr"
+          ></BaseInputPassword>
+          <BaseInputPassword
+            label="Confirm Password"
+            @input="confirmPassword = $event"
+            :statusErr="statusErr"
+            :valuePassword="password"
           />
-          <div class="form-groups">
-            <button type="submit">Register</button>
-          </div>
+          <Button :title="title" :type="'form'" />
         </form>
       </div>
     </div>
@@ -35,14 +50,19 @@ import {
   email,
 } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
-import Name from "../base/input/Name.vue";
-import Email from "../base/input/Email.vue";
-import Age from "../base/input/Age.vue";
-import Password from "../base/input/Password.vue";
-import ConfirmPass from "../base/input/ConfirmPass.vue";
+import BaseInputText from "../base/input/BaseInputText.vue";
+import BaseInputNumber from "../base/input/BaseInputNumber.vue";
+import BaseInputPassword from "../base/input/BaseInputPassword.vue";
+import Button from "../base/Button.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { Loading, Name, Email, Age, Password, ConfirmPass },
+  components: {
+    Loading,
+    Button,
+    BaseInputText,
+    BaseInputNumber,
+    BaseInputPassword,
+  },
   data() {
     return {
       name: "",
@@ -54,6 +74,7 @@ export default {
       message: "",
       check: true,
       isLoading: false,
+      title: "Register",
     };
   },
   validations: {

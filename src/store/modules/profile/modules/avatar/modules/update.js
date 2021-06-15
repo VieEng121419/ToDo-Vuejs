@@ -30,12 +30,10 @@ const actions = {
                 }
             })
             console.log(url)
+            commit('LOADED')
         }
         catch (err) {
             commit('profile/ERROR', err.response, { root: true })
-        }
-        finally {
-            commit('LOADED')
         }
     },
 }

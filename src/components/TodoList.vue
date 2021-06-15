@@ -1,6 +1,6 @@
 <template>
   <div class="todo-list">
-    <h1 class="todo__title">My Tasks</h1>
+    <TextBase component="h1" class="todo__title">{{ title }}</TextBase>
     <div class="todo__form">
       <input
         type="text"
@@ -19,9 +19,7 @@
           {{ $v.newTodo.$params.maxLength.max }} letters.
         </div>
       </div>
-      <button class="todo__button" @click="addTodo">
-        <i class="fas fa-plus"></i>
-      </button>
+      <Button :type="'add-todo'" @click.native="addTodo" />
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
@@ -39,9 +37,11 @@ import Loading from "./layouts/Loading.vue";
 import Pagination from "./layouts/Pagination.vue";
 import TodoItem from "./TodoItem.vue";
 import TodoFilter from "./TodoFilter.vue";
+import Button from "./base/Button.vue";
+import TextBase from "./base/TextBase.vue";
 import { mapState, mapActions } from "vuex";
 export default {
-  components: { TodoItem, Loading, TodoFilter, Pagination },
+  components: { TodoItem, Loading, TodoFilter, Pagination, Button, TextBase },
   data() {
     return {
       newTodo: "",
@@ -49,12 +49,13 @@ export default {
       isDisable: false,
       isPagination: true,
       statusErr: false,
+      title: "My Tasks",
     };
   },
   validations: {
     newTodo: {
       required,
-      maxLength: maxLength(50),
+      maxLength: maxLength(1000),
     },
   },
   computed: {

@@ -7,11 +7,17 @@
       </div>
       <div class="form__register">
         <form class="form" @submit.prevent="submiLogin">
-          <email @email="email = $event" :statusErr="statusErr" />
-          <password @password="password = $event" :statusErr="statusErr" />
-          <div class="form-group">
-            <button type="submit">Login</button>
-          </div>
+          <BaseInputText
+            label="Email"
+            @input="email = $event"
+            :statusErr="statusErr"
+          ></BaseInputText>
+          <BaseInputPassword
+            label="Password"
+            @input="password = $event"
+            :statusErr="statusErr"
+          ></BaseInputPassword>
+          <Button :title="title" :type="'form'" />
         </form>
       </div>
     </div>
@@ -22,11 +28,12 @@
 <script>
 import { required } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
-import Email from "../base/input/Email.vue";
-import Password from "../base/input/Password.vue";
+import BaseInputPassword from "../base/input/BaseInputPassword.vue";
+import BaseInputText from "../base/input/BaseInputText.vue";
+import Button from "../base/Button.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { Loading, Email, Password },
+  components: { Loading, Button, BaseInputPassword, BaseInputText },
   data() {
     return {
       email: "",
@@ -35,6 +42,7 @@ export default {
       message: "",
       check: true,
       isLoading: false,
+      title: "Login",
     };
   },
   validations: {

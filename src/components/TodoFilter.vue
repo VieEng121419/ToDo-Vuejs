@@ -1,30 +1,28 @@
 <template>
   <div class="filter__container">
-    <button
-      :class="[{ active: filter == 'new' }]"
-      @click="change(false, 'new')"
-    >
-      <span>New</span>
-    </button>
-    <button
-      :class="[{ active: filter == 'completed' }]"
-      @click="change(true, 'completed')"
-    >
-      <span>Completed</span>
-    </button>
-    <button :class="[{ active: filter == 'all' }]" @click="all('all')">
-      <span>All</span>
-    </button>
+    <Button
+      :title="'New'"
+      :type="'filter'"
+      @click.native="change(false, 'new')"
+    />
+    <Button
+      :title="'Completed'"
+      :type="'filter'"
+      @click.native="change(true, 'completed')"
+    />
+    <Button :title="'All'" :type="'filter'" @click.native="all('all')" />
     <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
 import Loading from "./layouts/Loading.vue";
+import Button from "./base/Button.vue";
 import { mapActions } from "vuex";
 export default {
   components: {
     Loading,
+    Button,
   },
   data() {
     return {
