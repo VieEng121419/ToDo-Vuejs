@@ -17,11 +17,17 @@
       <div
         v-if="!edit"
         class="todo-item-label"
-        @click="isActive = !isActive"
         :class="{ completed: todo.completed, active: isActive }"
-        title="Edit "
+        title="Edit"
       >
-        {{ todo.description }}
+        <TextBase
+          :class="{ active: isActive }"
+          component="p"
+          variant="task-description"
+          ellipsis="true"
+          @click="isActive = !isActive"
+          >{{ todo.description }}</TextBase
+        >
       </div>
       <input
         v-else
@@ -63,9 +69,10 @@
 <script>
 import PopupConfirm from "./layouts/PopupConfirm";
 import Loading from "./layouts/Loading.vue";
+import TextBase from "./base/TextBase.vue";
 import { mapState, mapActions } from "vuex";
 export default {
-  components: { PopupConfirm, Loading },
+  components: { PopupConfirm, Loading, TextBase },
   name: "todo-item",
   props: {
     todo: {

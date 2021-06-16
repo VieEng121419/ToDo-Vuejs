@@ -51,8 +51,8 @@
 .todo__button {
   width: 5.6%;
   position: absolute;
-  top: 4.5px;
-  right: 4.5px;
+  top: 0px;
+  right: 5.5px;
   @include respond(des){
     width: 5.6%;
   }
@@ -115,6 +115,18 @@
   &.active {
     width: 100%;
     white-space: normal;
+    @include respond(largeMobile){
+      width: 340px;
+  }
+    @include respond(mobile){
+      width: 240px;
+    }
+  }
+  @include respond(largeMobile){
+    width: 300px;
+  }
+  @include respond(mobile){
+    width: 200px;
   }
 }
 .todo-item-edit {

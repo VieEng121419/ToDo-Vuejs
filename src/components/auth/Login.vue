@@ -17,7 +17,9 @@
             @input="password = $event"
             :statusErr="statusErr"
           ></BaseInputPassword>
-          <Button :title="title" :type="'form'" />
+          <div class="form-group">
+            <Button typeButton="submit">Save</Button>
+          </div>
         </form>
       </div>
     </div>
@@ -30,7 +32,7 @@ import { required } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
 import BaseInputPassword from "../base/input/BaseInputPassword.vue";
 import BaseInputText from "../base/input/BaseInputText.vue";
-import Button from "../base/Button.vue";
+import Button from "../base/BaseButton.vue";
 import { mapActions } from "vuex";
 export default {
   components: { Loading, Button, BaseInputPassword, BaseInputText },

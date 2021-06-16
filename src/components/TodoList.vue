@@ -19,7 +19,9 @@
           {{ $v.newTodo.$params.maxLength.max }} letters.
         </div>
       </div>
-      <Button :type="'add-todo'" @click.native="addTodo" />
+      <Button class="todo__button" @click.native="addTodo" type="addTodo"
+        ><i class="fas fa-plus"></i
+      ></Button>
     </div>
     <todo-item v-for="(todo, index) in listTodo" :key="index" :todo="todo">
     </todo-item>
@@ -37,7 +39,7 @@ import Loading from "./layouts/Loading.vue";
 import Pagination from "./layouts/Pagination.vue";
 import TodoItem from "./TodoItem.vue";
 import TodoFilter from "./TodoFilter.vue";
-import Button from "./base/Button.vue";
+import Button from "./base/BaseButton.vue";
 import TextBase from "./base/TextBase.vue";
 import { mapState, mapActions } from "vuex";
 export default {

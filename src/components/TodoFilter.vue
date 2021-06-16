@@ -1,28 +1,28 @@
 <template>
   <div class="filter__container">
-    <Button
-      :title="'New'"
-      :type="'filter'"
-      @click.native="change(false, 'new')"
-    />
-    <Button
-      :title="'Completed'"
-      :type="'filter'"
-      @click.native="change(true, 'completed')"
-    />
-    <Button :title="'All'" :type="'filter'" @click.native="all('all')" />
+    <Button @click.native="change(false, 'new')"
+      ><TextBase component="p" variant="filter">New</TextBase></Button
+    >
+    <Button @click.native="change(true, 'completed')"
+      ><TextBase component="p" variant="filter">Completed</TextBase></Button
+    >
+    <Button @click.native="all('all')"
+      ><TextBase component="p" variant="filter">All</TextBase></Button
+    >
     <loading v-if="isLoading"></loading>
   </div>
 </template>
 
 <script>
 import Loading from "./layouts/Loading.vue";
-import Button from "./base/Button.vue";
+import Button from "./base/BaseButton.vue";
+import TextBase from "./base/TextBase.vue";
 import { mapActions } from "vuex";
 export default {
   components: {
     Loading,
     Button,
+    TextBase,
   },
   data() {
     return {

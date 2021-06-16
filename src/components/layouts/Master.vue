@@ -21,18 +21,30 @@
       </li>
     </div>
     <ul class="nav" v-if="!mobileView">
-      <li><router-link :to="{ name: 'todo' }">Todos</router-link></li>
-      <li v-if="!loggedIn">
-        <router-link :to="{ name: 'login' }">Login</router-link>
+      <li>
+        <router-link :to="{ name: 'todo' }"
+          ><TextBase component="p" variant="nav">Todos</TextBase></router-link
+        >
       </li>
       <li v-if="!loggedIn">
-        <router-link :to="{ name: 'register' }">Register</router-link>
+        <router-link :to="{ name: 'login' }"
+          ><TextBase component="p" ariant="nav">Login</TextBase></router-link
+        >
+      </li>
+      <li v-if="!loggedIn">
+        <router-link :to="{ name: 'register' }"
+          ><TextBase component="p" ariant="nav">Register</TextBase></router-link
+        >
       </li>
       <li v-if="loggedIn">
-        <router-link :to="{ name: 'profile' }"> Account </router-link>
+        <router-link :to="{ name: 'profile' }">
+          <TextBase component="p" ariant="nav">Account</TextBase>
+        </router-link>
       </li>
       <li v-if="loggedIn">
-        <router-link :to="{ name: 'logout' }">Logout</router-link>
+        <router-link :to="{ name: 'logout' }"
+          ><TextBase component="p" ariant="nav">Logout</TextBase></router-link
+        >
       </li>
     </ul>
     <router-view></router-view>
@@ -41,20 +53,24 @@
       group="success"
       animation-type="velocity"
       position="top center"
-      width="500px"
+      width="55%"
     />
     <notifications
       classes="notifi__error"
       group="error"
       animation-type="velocity"
       position="top center"
-      width="500px"
+      width="55%"
     />
   </div>
 </template>
 
 <script>
+import TextBase from "../base/TextBase.vue";
 export default {
+  components: {
+    TextBase,
+  },
   data() {
     return {
       userName: null,
@@ -80,6 +96,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~/../src/styles/abstracts/variables";
+@import "~/../src/styles/abstracts/mixin";
 #app {
   color: #2c3e50;
   font-size: 24px;
@@ -101,7 +119,7 @@ export default {
   }
 }
 .menu__mobile {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -3000px;
   width: 100%;
@@ -178,6 +196,9 @@ export default {
     font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
+     @include respond(mobile) {
+      font-size: 10px;
+    }
   }
 }
 </style>

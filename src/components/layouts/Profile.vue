@@ -28,8 +28,8 @@
                 <label for="img">Choose</label>
               </div>
             </div>
-            <div>
-              <Button :title="'Save'" v-if="isSave" :type="'avatar'" />
+            <div class="button__avatar--container">
+              <Button v-if="isSave" typeButton="submit">Save</Button>
             </div>
           </form>
           <div class="info">
@@ -59,7 +59,9 @@
               :statusErr="statusErr"
               :ageUser="age"
             ></BaseInputNumber>
-            <Button :title="'Save'" :type="'form'" />
+            <div class="form-group">
+              <Button typeButton="submit">Save</Button>
+            </div>
           </form>
         </div>
       </div>
@@ -79,7 +81,7 @@ import { mapActions } from "vuex";
 import Loading from "../layouts/Loading";
 import BaseInputText from "../base/input/BaseInputText.vue";
 import BaseInputNumber from "../base/input/BaseInputNumber.vue";
-import Button from "../base/Button.vue";
+import Button from "../base/BaseButton.vue";
 import TextBase from "../base/TextBase.vue";
 export default {
   components: {
@@ -240,4 +242,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.button__avatar--container {
+  width: 24%;
+  display: block;
+  margin: 0 auto;
+}
+</style>

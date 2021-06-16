@@ -3,7 +3,6 @@ button {
     display: block;
     height: auto;
     width: 100%;
-    font-size: 15px !important;
     font-weight: 700;
     box-sizing: border-box;
     background: #3ab397 !important;
@@ -13,7 +12,8 @@ button {
     border-radius: 50px;
     border: none;
     padding: 15px;
-    margin-bottom: 20px;
+    margin-top: 5px;
+    margin-bottom: 10px;
     &:hover {
         color: #fff;
         background: #3aaf9f;
