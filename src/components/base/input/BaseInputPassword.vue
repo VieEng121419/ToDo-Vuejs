@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="form-groups">
-      <TextBase component="label">{{ label }}</TextBase>
+      <TextBase component="label" size="sm" weight="bold">{{ label }}</TextBase>
       <input
         type="password"
         placeholder="Type your password"
@@ -11,24 +11,7 @@
       />
     </div>
     <!-- validate password -->
-    <div v-if="isPassword">
-      <div v-if="sttError" class="err">
-        <div class="error" v-if="!$v.password.required">
-          Password is required.
-        </div>
-        <div class="error" v-if="!$v.password.minLength">
-          Password must have at least
-          {{ $v.password.$params.minLength.min }} letters.
-        </div>
-      </div>
-    </div>
-    <div v-else>
-      <div v-if="sttError" class="err">
-        <div class="error" v-if="!$v.password.sameAsPassword">
-          Passwords must be identical.
-        </div>
-      </div>
-    </div>
+
     <!-- validate password -->
   </div>
 </template>

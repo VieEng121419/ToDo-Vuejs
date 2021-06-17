@@ -1,13 +1,15 @@
 <template>
   <div class="filter__container">
-    <Button @click.native="change(false, 'new')"
-      ><TextBase component="p" variant="filter">New</TextBase></Button
+    <Button @click="change(false, 'new')" type="filter"
+      ><TextBase component="p" variant="filter" size="xs">New</TextBase></Button
     >
-    <Button @click.native="change(true, 'completed')"
-      ><TextBase component="p" variant="filter">Completed</TextBase></Button
+    <Button @click="change(true, 'completed')" type="filter"
+      ><TextBase component="p" variant="filter" size="xs"
+        >Completed</TextBase
+      ></Button
     >
-    <Button @click.native="all('all')"
-      ><TextBase component="p" variant="filter">All</TextBase></Button
+    <Button @click="all('all')" type="filter"
+      ><TextBase component="p" variant="filter" size="xs">All</TextBase></Button
     >
     <loading v-if="isLoading"></loading>
   </div>
@@ -63,34 +65,5 @@ export default {
   margin-top: 25px;
   display: flex;
   justify-content: flex-end;
-  button {
-    width: 70px;
-    margin-left: 10px;
-    border-radius: 50px;
-    border: 1px solid #f0f0f0;
-    background: #fff !important;
-    padding: 6px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    span {
-      color: #3ab397;
-      font-size: 10px;
-    }
-    &:hover {
-      border: none;
-      background: #3aaf9f !important;
-      span {
-        color: #fff;
-      }
-    }
-    &.active {
-      background: #3ab397 !important;
-      border: none !important;
-      span {
-        color: #fff;
-      }
-    }
-  }
 }
 </style>

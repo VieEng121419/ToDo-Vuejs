@@ -5,14 +5,10 @@
         <img class="modal-img" src="@/assets/check.png" alt="check" />
         <h2 class="modal-title">{{ message }}</h2>
         <div class="modal-buttons">
-          <button
-            class="modal-button"
-            style="margin-right: 20px;"
-            @click="confirm"
-          >
+          <Button type="confirm" class="mr" @click="confirm">
             Yes
-          </button>
-          <button class="modal-button" @click="back">No</button>
+          </Button>
+          <Button type="confirm" @click="back">No</Button>
         </div>
       </div>
       <div class="popup__fill"></div>
@@ -23,9 +19,10 @@
 
 <script>
 import Loading from "../layouts/Loading.vue";
+import Button from "../base/BaseButton.vue";
 import { mapActions } from "vuex";
 export default {
-  components: { Loading },
+  components: { Loading, Button },
   data() {
     return {
       isLoading: false,
@@ -77,4 +74,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+.mr {
+  margin-right: 20px;
+}
+</style>

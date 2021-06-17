@@ -7,7 +7,7 @@
         "My Account"
       }}</TextBase>
       <div class="container__form--profile">
-        <TextBase component="p" class="form__title">{{
+        <TextBase component="p" class="form__title" size="sm">{{
           "USER INFOMATION"
         }}</TextBase>
         <div class="user__profile">
@@ -29,15 +29,19 @@
               </div>
             </div>
             <div class="button__avatar--container">
-              <Button v-if="isSave" typeButton="submit">Save</Button>
+              <Button v-if="isSave" typeButton="submit" type="form"
+                >Save</Button
+              >
             </div>
           </form>
           <div class="info">
             <div class="info__name">
-              <TextBase component="h6">{{ name }}, {{ age }}</TextBase>
+              <TextBase component="h6" weight="bold"
+                >{{ name }}, {{ age }}</TextBase
+              >
             </div>
             <div class="info__email">
-              <TextBase component="h6">{{ email }}</TextBase>
+              <TextBase component="h6" weight="bold">{{ email }}</TextBase>
             </div>
           </div>
         </div>
@@ -60,7 +64,7 @@
               :ageUser="age"
             ></BaseInputNumber>
             <div class="form-group">
-              <Button typeButton="submit">Save</Button>
+              <Button typeButton="submit" type="form">Save</Button>
             </div>
           </form>
         </div>
@@ -243,9 +247,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~/../src/styles/abstracts/variables";
+@import "~/../src/styles/abstracts/mixin";
 .button__avatar--container {
   width: 24%;
   display: block;
   margin: 0 auto;
+  @include respond(largeTablet) {
+    width: 37%;
+  }
 }
 </style>

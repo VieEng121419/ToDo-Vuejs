@@ -23,27 +23,35 @@
     <ul class="nav" v-if="!mobileView">
       <li>
         <router-link :to="{ name: 'todo' }"
-          ><TextBase component="p" variant="nav">Todos</TextBase></router-link
+          ><TextBase component="p" variant="nav" weight="bold"
+            >Todos</TextBase
+          ></router-link
         >
       </li>
       <li v-if="!loggedIn">
         <router-link :to="{ name: 'login' }"
-          ><TextBase component="p" ariant="nav">Login</TextBase></router-link
+          ><TextBase component="p" ariant="nav" weight="bold"
+            >Login</TextBase
+          ></router-link
         >
       </li>
       <li v-if="!loggedIn">
         <router-link :to="{ name: 'register' }"
-          ><TextBase component="p" ariant="nav">Register</TextBase></router-link
+          ><TextBase component="p" ariant="nav" weight="bold"
+            >Register</TextBase
+          ></router-link
         >
       </li>
       <li v-if="loggedIn">
         <router-link :to="{ name: 'profile' }">
-          <TextBase component="p" ariant="nav">Account</TextBase>
+          <TextBase component="p" ariant="nav" weight="bold">Account</TextBase>
         </router-link>
       </li>
       <li v-if="loggedIn">
         <router-link :to="{ name: 'logout' }"
-          ><TextBase component="p" ariant="nav">Logout</TextBase></router-link
+          ><TextBase component="p" ariant="nav" weight="bold"
+            >Logout</TextBase
+          ></router-link
         >
       </li>
     </ul>
@@ -196,7 +204,7 @@ export default {
     font-size: 15px;
     font-weight: bold;
     text-transform: uppercase;
-     @include respond(mobile) {
+    @include respond(mobile) {
       font-size: 10px;
     }
   }

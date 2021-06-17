@@ -26,6 +26,7 @@
           variant="task-description"
           ellipsis="true"
           @click="isActive = !isActive"
+          size="sm"
           >{{ todo.description }}</TextBase
         >
       </div>
@@ -139,4 +140,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style style="scss" scoped>
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

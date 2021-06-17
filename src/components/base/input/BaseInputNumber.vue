@@ -1,21 +1,13 @@
 <template>
   <div class="form-groups">
     <div class="form-groups">
-      <TextBase component="label">{{ label }}</TextBase>
+      <TextBase component="label" size="sm" weight="bold">{{ label }}</TextBase>
       <input
         type="text"
         placeholder="Type your name"
-        @blur="sttError = true"
-        v-model.trim.lazy.number="$v.value.$model"
+        v-model.trim.lazy.number="value"
       />
     </div>
-    <!-- validate number-->
-    <div v-if="sttError" class="err">
-      <div class="error" v-if="!$v.value.minValue">
-        {{ label }} must have at least {{ $v.value.$params.minValue.min }}
-      </div>
-    </div>
-    <!-- validate number-->
   </div>
 </template>
 
@@ -28,9 +20,6 @@ export default {
     label: {
       type: String,
     },
-    statusErr: {
-      type: Boolean,
-    },
     ageUser: {
       type: Number,
     },
@@ -38,7 +27,6 @@ export default {
   data() {
     return {
       value: 0,
-      sttError: false,
     };
   },
   watch: {
@@ -46,9 +34,6 @@ export default {
       if (this.value === "") {
         this.value = 0;
       } else this.$emit("input", this.value);
-    },
-    statusErr() {
-      this.sttError = true;
     },
   },
   created() {
@@ -61,7 +46,6 @@ export default {
       minValue: minValue(10),
     },
   },
-  
 };
 </script>
 

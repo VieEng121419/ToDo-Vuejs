@@ -10,15 +10,30 @@
           <BaseInputText
             label="Email"
             @input="email = $event"
-            :statusErr="statusErr"
+            @blur="statusErr = true"
           ></BaseInputText>
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.email.required">Field is required</div>
+            <div class="error" v-if="!$v.email.email">Email must be valid</div>
+          </div>
+
           <BaseInputPassword
             label="Password"
             @input="password = $event"
-            :statusErr="statusErr"
+            @blur="statusErr = true"
           ></BaseInputPassword>
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.password.required">
+              Password is required.
+            </div>
+            <div class="error" v-if="!$v.password.minLength">
+              Password must have at least
+              {{ $v.password.$params.minLength.min }} letters.
+            </div>
+          </div>
+
           <div class="form-group">
-            <Button typeButton="submit">Save</Button>
+            <Button typeButton="submit" type="form">Login</Button>
           </div>
         </form>
       </div>
@@ -28,7 +43,7 @@
 </template>
 
 <script>
-import { required } from "vuelidate/lib/validators";
+import { required, email, minLength } from "vuelidate/lib/validators";
 import Loading from "../layouts/Loading.vue";
 import BaseInputPassword from "../base/input/BaseInputPassword.vue";
 import BaseInputText from "../base/input/BaseInputText.vue";
@@ -50,9 +65,11 @@ export default {
   validations: {
     email: {
       required,
+      email,
     },
     password: {
       required,
+      minLength: minLength(8),
     },
   },
   methods: {

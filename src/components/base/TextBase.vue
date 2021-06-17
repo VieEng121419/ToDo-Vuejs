@@ -7,17 +7,34 @@
 <script>
 export default {
   props: {
-    component: {},
+    component: {
+      default: "p",
+    },
     variant: {
       type: String,
     },
     ellipsis: {},
+    size: {
+      type: String,
+      default: "md",
+    },
+    color: {
+      type: String,
+      default: "text-black",
+    },
+    weight: {
+      type: String,
+      default: "normal",
+    },
   },
   computed: {
     classes() {
       return {
         [`style-${this.component}`]: true,
         [`style-${this.variant}`]: true,
+        [`font-${this.weight}`]: true,
+        [`font-${this.size}`]: true,
+        [`font-${this.color}`]: true,
         ellipsis: !!this.ellipsis,
       };
     },
@@ -29,18 +46,16 @@ export default {
 @import "~/../src/styles/abstracts/variables";
 @import "~/../src/styles/abstracts/mixin";
 .style-h1 {
-  line-height: 80px;
+  font-size: 50px !important  ;
 }
 .style-h3 {
-  line-height: 20px;
+  font-size: 30px !important  ;
 }
 .style-h6 {
   line-height: 20px;
 }
 .style-label {
   line-height: 20px;
-}
-.style-span {
 }
 .style-task-description {
   width: 100%;
@@ -70,5 +85,32 @@ export default {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+.font-xs {
+  font-size: 10px;
+}
+.font-sm {
+  font-size: 13px;
+}
+.font-md {
+  font-size: 15px;
+}
+.font-lg {
+  font-size: 30px;
+}
+.font-xl {
+  font-size: 50px;
+}
+.font-text-white {
+  color: #fff;
+}
+.font-bold {
+  font-weight: bold;
+}
+.font-light {
+  font-weight: lighter;
+}
+.font-normal {
+  font-weight: normal;
 }
 </style>

@@ -103,6 +103,11 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #3aaf9f;
+    color: #fff;
+    border: none;
     &.disableNext {
       background: #fff !important;
       border: 1px solid #3aaf9f;

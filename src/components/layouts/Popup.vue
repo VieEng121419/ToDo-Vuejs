@@ -10,7 +10,7 @@
       <img v-else class="modal-img" src="@/assets/error.png" alt="error" />
       <h2 class="modal-title">{{ text }}</h2>
       <div class="modal-buttons">
-        <button class="modal-button" @click="hide">Close</button>
+        <Button type="confirm" @click="hide">Close</Button>
       </div>
     </div>
     <div class="popup__fill"></div>
@@ -19,7 +19,11 @@
 
 <script>
 import Modal from "../../plugins/popup";
+import Button from "../base/BaseButton.vue";
 export default {
+  components: {
+    Button,
+  },
   data() {
     return {
       visible: false,

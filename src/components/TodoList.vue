@@ -1,6 +1,8 @@
 <template>
   <div class="todo-list">
-    <TextBase component="h1" class="todo__title">{{ title }}</TextBase>
+    <TextBase component="h1" class="todo__title" weight="bold">{{
+      title
+    }}</TextBase>
     <div class="todo__form">
       <input
         type="text"
@@ -19,7 +21,7 @@
           {{ $v.newTodo.$params.maxLength.max }} letters.
         </div>
       </div>
-      <Button class="todo__button" @click.native="addTodo" type="addTodo"
+      <Button class="todo__button" @click="addTodo" type="addtask"
         ><i class="fas fa-plus"></i
       ></Button>
     </div>
@@ -139,4 +141,4 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped></style>

@@ -9,31 +9,72 @@
           <BaseInputText
             label="Name"
             @input="name = $event"
-            :statusErr="statusErr"
+            @blur="statusErr = true"
           ></BaseInputText>
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.name.required">Field is required</div>
+            <div class="error" v-if="!$v.name.minLength">
+              Name must have at least
+              {{ $v.name.$params.minLength.min }} letters.
+            </div>
+            <div class="error" v-if="!$v.name.maxLength">
+              Name must have at most
+              {{ $v.name.$params.maxLength.max }} letters.
+            </div>
+          </div>
+
           <BaseInputText
             label="Email"
             @input="email = $event"
-            :statusErr="statusErr"
+            @blur="statusErr = true"
           ></BaseInputText>
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.email.required">Field is required</div>
+            <div class="error" v-if="!$v.email.email">Email must be valid</div>
+          </div>
+
           <BaseInputNumber
             label="Age"
             @input="age = $event"
-            :statusErr="statusErr"
+            @blur="statusErr = true"
           ></BaseInputNumber>
+          <!-- validate number-->
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.age.minValue">
+              Age must have at least {{ $v.age.$params.minValue.min }}
+            </div>
+          </div>
+          <!-- validate number-->
+
           <BaseInputPassword
             label="Password"
             @input="password = $event"
-            :statusErr="statusErr"
+            @blur="statusErr = true"
           ></BaseInputPassword>
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.password.required">
+              Password is required.
+            </div>
+            <div class="error" v-if="!$v.password.minLength">
+              Password must have at least
+              {{ $v.password.$params.minLength.min }} letters.
+            </div>
+          </div>
+
           <BaseInputPassword
             label="Confirm Password"
             @input="confirmPassword = $event"
-            :statusErr="statusErr"
             :valuePassword="password"
+            @blur="statusErr = true"
           />
+          <div v-if="statusErr" class="err">
+            <div class="error" v-if="!$v.confirmPassword.sameAsPassword">
+              Passwords must be identical.
+            </div>
+          </div>
+
           <div class="form-group">
-            <Button typeButton="submit">Save</Button>
+            <Button typeButton="submit" type="form">Register</Button>
           </div>
         </form>
       </div>
