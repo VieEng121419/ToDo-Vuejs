@@ -55,7 +55,8 @@ export default {
   line-height: 20px;
 }
 .style-label {
-  line-height: 20px;
+  display: block;
+  margin-bottom: 5px;
 }
 .style-task-description {
   width: 100%;

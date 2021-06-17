@@ -18,13 +18,12 @@
 <script>
 import Loading from "./layouts/Loading.vue";
 import Button from "./base/BaseButton.vue";
-import TextBase from "./base/TextBase.vue";
+
 import { mapActions } from "vuex";
 export default {
   components: {
     Loading,
     Button,
-    TextBase,
   },
   data() {
     return {

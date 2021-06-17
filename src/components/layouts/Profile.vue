@@ -25,7 +25,10 @@
                   accept="image/*"
                   @change="onFileChange"
                 />
-                <label for="img">Choose</label>
+                <!-- <label for="img">Choose</label> -->
+                <TextBase component="label" size="md" color="text-white"
+                  >Choose</TextBase
+                >
               </div>
             </div>
             <div class="button__avatar--container">
@@ -86,12 +89,10 @@ import Loading from "../layouts/Loading";
 import BaseInputText from "../base/input/BaseInputText.vue";
 import BaseInputNumber from "../base/input/BaseInputNumber.vue";
 import Button from "../base/BaseButton.vue";
-import TextBase from "../base/TextBase.vue";
 export default {
   components: {
     Loading,
     Button,
-    TextBase,
     BaseInputText,
     BaseInputNumber,
   },

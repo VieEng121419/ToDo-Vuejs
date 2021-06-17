@@ -7,6 +7,7 @@ import { router } from './router/router'
 import Master from './components/layouts/Master'
 import Modal from './plugins/popup'
 import store from './store/index'
+import TextBase from './components/base/TextBase'
 
 import './styles/index.scss'
 
@@ -16,9 +17,7 @@ Vue.use(Vuelidate)
 Vue.use(VueRouter)
 Vue.use(Modal)
 Vue.use(Notifications, { velocity })
-
-
-
+Vue.component('TextBase', TextBase)
 
 new Vue({
   router,

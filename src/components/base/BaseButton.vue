@@ -18,11 +18,7 @@
 </template>
 
 <script>
-import TextBase from "./TextBase.vue";
 export default {
-  components: {
-    TextBase,
-  },
   props: {
     type: {
       type: String,

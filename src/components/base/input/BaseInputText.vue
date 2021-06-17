@@ -13,9 +13,7 @@
 </template>
 
 <script>
-import TextBase from "../TextBase.vue";
 export default {
-  components: { TextBase },
   props: {
     label: {
       type: String,
@@ -41,4 +39,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+input {
+  width: 100%;
+  padding: 15px 1em;
+  border: none !important;
+  background: #f4f8f7;
+  border-radius: 5px !important;
+  margin-bottom: 20px;
+  font-size: 15px !important;
+}
+</style>

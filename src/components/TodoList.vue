@@ -42,10 +42,9 @@ import Pagination from "./layouts/Pagination.vue";
 import TodoItem from "./TodoItem.vue";
 import TodoFilter from "./TodoFilter.vue";
 import Button from "./base/BaseButton.vue";
-import TextBase from "./base/TextBase.vue";
 import { mapState, mapActions } from "vuex";
 export default {
-  components: { TodoItem, Loading, TodoFilter, Pagination, Button, TextBase },
+  components: { TodoItem, Loading, TodoFilter, Pagination, Button },
   data() {
     return {
       newTodo: "",

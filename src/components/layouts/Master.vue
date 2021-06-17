@@ -74,11 +74,9 @@
 </template>
 
 <script>
-import TextBase from "../base/TextBase.vue";
+
 export default {
-  components: {
-    TextBase,
-  },
+
   data() {
     return {
       userName: null,

@@ -70,10 +70,9 @@
 <script>
 import PopupConfirm from "./layouts/PopupConfirm";
 import Loading from "./layouts/Loading.vue";
-import TextBase from "./base/TextBase.vue";
 import { mapState, mapActions } from "vuex";
 export default {
-  components: { PopupConfirm, Loading, TextBase },
+  components: { PopupConfirm, Loading },
   name: "todo-item",
   props: {
     todo: {

@@ -6,27 +6,17 @@
         type="password"
         placeholder="Type your password"
         @blur="sttError = true"
-        :class="{ 'form-groups--error': $v.password.$error }"
-        v-model.trim="$v.password.$model"
+        v-model.trim="password"
       />
     </div>
-    <!-- validate password -->
-
-    <!-- validate password -->
   </div>
 </template>
 
 <script>
-import { required, minLength, sameAs } from "vuelidate/lib/validators";
-import TextBase from "../TextBase.vue";
 export default {
-  components: { TextBase },
   props: {
     label: {
       type: String,
-    },
-    statusErr: {
-      type: Boolean,
     },
     valuePassword: {
       type: String,
@@ -35,23 +25,12 @@ export default {
   data() {
     return {
       password: "",
-      sttError: false,
       isPassword: true,
     };
   },
   watch: {
     password() {
       this.$emit("input", this.password);
-    },
-    statusErr() {
-      this.sttError = true;
-    },
-  },
-  validations: {
-    password: {
-      required,
-      minLength: minLength(8),
-      sameAsPassword: sameAs("valuePassword"),
     },
   },
   created() {
@@ -60,4 +39,14 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+input {
+  width: 100%;
+  padding: 15px 1em;
+  border: none !important;
+  background: #f4f8f7;
+  border-radius: 5px !important;
+  margin-bottom: 20px;
+  font-size: 15px !important;
+}
+</style>
