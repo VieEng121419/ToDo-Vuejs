@@ -5,7 +5,7 @@
       <input
         type="text"
         :placeholder="'Type your ' + [[label]]"
-        v-model="value"
+        v-model.trim="value"
         @blur="$emit('blur', $event)"
       />
     </div>
